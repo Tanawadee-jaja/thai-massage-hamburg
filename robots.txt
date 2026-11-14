@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /gutschein.html
+Sitemap: https://thaimassagehamburg.netlify.app/sitemap.xml

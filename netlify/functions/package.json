@@ -1,0 +1,8 @@
+{
+  "name": "thai-massage-hamburg",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "latest"
+  }
+}

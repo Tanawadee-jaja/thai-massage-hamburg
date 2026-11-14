@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>นวดไทย ฮัมบูร์ก</title>
+<meta name="theme-color" content="#5b1a4a">
+<meta name="description" content="Thai massage studios in Hamburg – ร้านนวดไทยในฮัมบูร์ก – Thaimassage in Hamburg">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Thai Massage HH">
+<style>
+/* VOICE: warm, practical directory app – calm and trustworthy, like a good city guide
+   IDEA: a Thai lacquered menu board – orchid field with gold edges, and a district map you tap
+   PICTURE: clickable schematic map of Hamburg's seven districts, tinted by how many shops each has
+   COLOUR and TYPE: orchid #5b1a4a dominant, white ground, gold #d6a32a accent; system Thai sans (Noto Sans Thai / Thonburi), no external fonts
+   LAYOUT: header band with title + language switch, map beside the intro; stacks on phones; card grid below */
+:root{color-scheme:light dark;--fb:"Noto Sans Thai","Sukhumvit Set","Thonburi","Leelawadee UI","Tahoma",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--fh:"Noto Sans Thai","Sukhumvit Set","Thonburi","Leelawadee UI",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+--bg:light-dark(#ffffff,#170d15);--ink:light-dark(#22151f,#f4e9f0);--mut:light-dark(#6c5866,#bba6b4);
+--or:light-dark(#5b1a4a,#3a0f2f);--or2:light-dark(#f6edf3,#24131f);--gold:#d6a32a;--line:light-dark(#ead9e4,#3a2534);
+--card:light-dark(#fff,#1f1219);--loc:light-dark(#5b1a4a,#e7b9d6)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--fb);overflow-x:clip}
+h1,h2,h3{font-family:var(--fh);margin:0;line-height:1.1;text-wrap:balance}
+.top{background:linear-gradient(180deg,rgba(45,10,36,.35) 0,rgba(91,26,74,.78) 260px,#5b1a4a 520px),url(hero.jpg) center top/cover no-repeat,#5b1a4a;color:#fff;padding:clamp(18px,3vw,36px) max(5vw,16px) clamp(18px,3vw,32px);border-bottom:4px solid var(--gold)}
+.wrap{max-width:1240px;margin:0 auto}
+.hd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(16px,3vw,40px);align-items:center}
+.bar1{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.langs{display:flex;gap:4px;background:rgba(255,255,255,.1);border-radius:999px;padding:4px}
+.langs button{min-width:44px;min-height:36px;border:0;border-radius:999px;background:transparent;color:#fff;font:600 14px var(--fh);cursor:pointer}
+.langs button[aria-pressed=true]{background:var(--gold);color:#2a1424}
+.top h1,.top p{text-shadow:0 2px 12px rgba(0,0,0,.55)}
+.top h1{font-size:clamp(30px,4.6vw,46px);font-weight:600}
+.top p{margin:10px 0 0;color:#f0dbe8;max-width:52ch}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.chip{min-height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font:500 14px var(--fb);padding:0 14px;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed=true]{background:var(--gold);color:#2a1424;border-color:var(--gold)}
+.chip small{opacity:.75;margin-left:4px}
+.mapbox{position:relative;background:radial-gradient(120% 90% at 30% 20%,#7a2a63 0,#43102f 70%);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:10px 10px 6px;box-shadow:0 20px 40px -18px rgba(0,0,0,.6)}
+.mapbox svg{display:block;width:100%;height:auto}
+.zone{cursor:pointer;stroke:#fff;stroke-width:2.2;stroke-opacity:.9;stroke-linejoin:round;transition:fill .25s,filter .25s}
+.wl{font:italic 600 13px var(--fh);fill:#d7ecfa;letter-spacing:.04em}.wl.sm{font-size:10px}
+.nn circle{fill:rgba(255,255,255,.12);stroke:rgba(255,255,255,.4)}.nn path{fill:#fff}.nn text{font:600 11px var(--fh);fill:#fff;text-anchor:middle}
+.zl text{text-anchor:middle;font-family:var(--fh)}.zl .n{font-size:14px;font-weight:600;fill:#4a1239}.zl .cb{fill:#5b1a4a}.zl .c{font-size:14px;font-weight:700;fill:#fff}.zl.on .n{fill:#2a1424}.zl.on .cb{fill:#fff}.zl.on .c{fill:#5b1a4a}
+.pl{font:700 12.5px var(--fh);fill:#5b1a4a;text-anchor:middle}
+#pin:hover{filter:brightness(1.08)}#pin:focus-visible{outline:none}#pin:focus-visible path{stroke:#d6a32a;stroke-width:3}
+.zone:hover{filter:brightness(1.12)}
+.zone.on{fill:var(--gold)!important}
+.zone:focus{outline:none}.zone:focus-visible{stroke:#fff;stroke-width:5}
+
+.maphint{font-size:13px;color:#e8cfe0;margin:6px 4px 0}
+.dist{background:var(--card);color:var(--ink);border-radius:18px;padding:20px 20px 14px;box-shadow:0 24px 48px -20px rgba(0,0,0,.55);border-top:4px solid var(--gold)}
+.dh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.dh h2{font-size:18px;font-weight:600;letter-spacing:.01em}.dh span{font-size:14px;color:var(--mut);white-space:nowrap}
+.dr{display:grid;grid-template-columns:minmax(0,1fr) 34px;align-items:center;gap:4px 14px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:10px 8px;margin:0;color:inherit;font:inherit;cursor:pointer;border-radius:0}
+.dr:last-child{border-bottom:0}
+.dr:hover{background:var(--or2)}
+.dr:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
+.dr b{font-weight:600;font-size:16px}.dr small{display:block;font-size:13px;color:var(--mut);font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dr .n{font:600 18px var(--fh);text-align:right;font-variant-numeric:tabular-nums;color:var(--loc)}
+.dr .bar{grid-column:1/-1;height:3px;background:var(--line);border-radius:2px;overflow:hidden}.dr .bar i{display:block;height:100%;background:var(--loc);opacity:.55}
+.dr[aria-pressed=true]{background:var(--or);color:#fff}.dr[aria-pressed=true] small{color:#ecd3e3}.dr[aria-pressed=true] .n{color:var(--gold)}.dr[aria-pressed=true] .bar{background:rgba(255,255,255,.2)}.dr[aria-pressed=true] .bar i{background:var(--gold);opacity:1}
+.dfeat{display:flex;align-items:center;gap:10px;width:100%;margin-top:12px;padding:12px 14px;border-radius:12px;border:1px solid var(--gold);background:color-mix(in srgb,var(--gold) 12%,transparent);color:var(--ink);font:500 14px var(--fb);text-align:left;cursor:pointer;min-height:44px}
+.dfeat:hover{background:color-mix(in srgb,var(--gold) 22%,transparent)}
+.dmap+.dmap{margin-left:14px}
+.dmap{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:14px;color:var(--loc);text-decoration:none;min-height:36px}.dmap:hover{text-decoration:underline}
+.tools{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:12px max(5vw,16px)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.search{flex:1 1 260px;display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:12px;padding:0 12px;background:var(--card)}
+.search:focus-within{border-color:var(--or);outline:2px solid color-mix(in srgb,var(--gold) 60%,transparent)}
+.search input{flex:1;border:0;background:transparent;color:var(--ink);font:16px var(--fb);padding:11px 0;outline:0}
+.btn{min-height:44px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:500 15px var(--fb);padding:0 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--or)}
+.btn:focus-visible,.chip:focus-visible,.fav:focus-visible,.langs button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btn[aria-pressed=true]{background:var(--or);color:#fff;border-color:var(--or)}
+main{padding:20px max(5vw,16px) 40px}
+.meta{color:var(--mut);font-size:14px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:14px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px;position:relative}
+.cimg{margin:-16px -16px 4px;border-radius:14px 14px 0 0;overflow:hidden;aspect-ratio:3/2;background:var(--or2)}.cimg img{width:100%;height:100%;object-fit:cover;display:block}
+.c:has(.cimg) .fav{background:rgba(255,255,255,.85)}
+.c.feat{border:2px solid var(--gold);background:linear-gradient(var(--or2),var(--card) 70%)}
+.badges{display:flex;flex-wrap:wrap;gap:6px}.bd{font-size:13px;font-weight:600;border-radius:999px;padding:2px 10px;background:var(--or2);color:var(--loc)}.bd.op{background:#e3f4e6;color:#1d6b33}.bd.cl{background:var(--or2);color:var(--mut)}
+.btn.rep{border-style:dashed;color:var(--mut);font-size:13px}
+.policy{font-weight:600;color:var(--ink);margin:0 0 8px}
+.tag{align-self:flex-start;font-size:13px;font-weight:600;background:var(--gold);color:#2a1424;border-radius:999px;padding:2px 10px}
+.c h3{font-size:19px;font-weight:500;padding-right:44px}
+.loc{font-size:14px;color:var(--loc);font-weight:600}
+.addr{font-size:15px;color:var(--mut);margin:0}
+.tel{white-space:nowrap}
+.rt{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--mut)}.rt b{font-family:var(--fh);font-size:16px;color:var(--ink);font-weight:600}.rt .st{color:var(--gold);letter-spacing:1px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:6px}
+.acts .btn{font-size:14px;min-height:40px;padding:0 12px}
+.fav{position:absolute;top:10px;right:10px;width:44px;height:44px;border:0;background:transparent;z-index:1;cursor:pointer;border-radius:50%;color:var(--mut)}
+.fav svg{width:24px;height:24px}
+.fav[aria-pressed=true]{color:#c8326e}
+.empty{text-align:center;padding:50px 16px;color:var(--mut);grid-column:1/-1}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:15px;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90vw}
+.toast.on{opacity:1}
+.btn.pri{background:var(--gold);border-color:var(--gold);color:#2a1424;font-weight:600}
+.ov{position:fixed;inset:0;z-index:20;background:rgba(20,6,16,.55);display:none;align-items:flex-end;justify-content:center;padding:0}
+.ov.on{display:flex}
+.dlg{background:var(--card);color:var(--ink);width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px 20px 24px;border-top:4px solid var(--gold)}
+@media(min-width:640px){.ov{align-items:center;padding:20px}.dlg{border-radius:20px}}
+.dlg h2{font-size:24px;font-weight:600;margin-bottom:4px}
+.dlg .sub{color:var(--mut);font-size:14px;margin:0 0 14px}
+.fld{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.fld>span{font-size:14px;font-weight:600}
+.fld input,.fld select,.fld textarea{font:16px var(--fb);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;min-height:44px;width:100%}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:3px solid color-mix(in srgb,var(--gold) 60%,transparent);border-color:var(--or)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{min-height:42px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:500 15px var(--fb);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--or);border-color:var(--or);color:#fff}
+.err{color:#c0264f;font-size:14px;min-height:20px;margin:0 0 8px}
+.dact{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.fine{font-size:13px;color:var(--mut);margin:12px 0 0}
+.sum{background:var(--or2);border-radius:12px;padding:12px 14px;font-size:15px;white-space:pre-line;margin:0 0 12px}
+.lg{max-width:720px}.lg h2{font-size:26px;margin:4px 0 12px}.lg h3{font-size:17px;margin:18px 0 4px}.lg p{margin:0 0 8px;font-size:15px}
+.flinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.flinks a,.flinks button{min-height:40px;display:inline-flex;align-items:center;padding:0 12px;border-radius:10px;border:1px solid var(--line);color:var(--ink);background:transparent;font:500 14px var(--fb);text-decoration:none;cursor:pointer}
+.ios{font-size:14px;margin-top:10px}
+.gvi{position:relative;container-type:inline-size;border-radius:10px;overflow:hidden;box-shadow:0 10px 26px -12px rgba(0,0,0,.45);margin:0 0 8px;background:#f7f3ee}
+.gvi img{display:block;width:100%;height:auto}
+.gx{position:absolute;font:italic 600 3cqw/1 Georgia,"Times New Roman",serif;color:#6b3a1c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gmsg{font:italic 15px Georgia,serif;color:var(--mut);margin:0 0 14px;min-height:1px;overflow-wrap:anywhere}
+.gvp{position:relative;border-radius:16px;padding:18px 20px;margin:0 0 16px;background:linear-gradient(135deg,#5b1a4a,#3a0f2f);color:#fff;border:2px solid var(--gold);overflow:hidden}
+.gvp::after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;border:18px solid rgba(214,163,42,.18)}
+.gvp .k{font:600 12px var(--fh);letter-spacing:.12em;color:var(--gold)}.gvp .s{font-size:13px;color:#ecd3e3;margin-top:2px}
+.gvp .v{font:700 40px/1.1 var(--fh);margin:10px 0 6px;color:#fff}.gvp .f{font-size:15px}.gvp .m{font-size:14px;color:#f3e3ec;font-style:italic;margin-top:4px;overflow-wrap:anywhere}
+.gvp .g{font-size:12px;color:#d9bfd0;margin-top:10px}
+.amt{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.amt input{width:110px;min-height:42px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:16px var(--fb);padding:0 14px}
+.adband{background:var(--or2);border-top:1px solid var(--line);padding:26px max(5vw,16px)}
+.adin{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+.adband h2{font-size:22px;font-weight:600;color:var(--loc)}.adband p{margin:4px 0 0;color:var(--mut);max-width:60ch}
+.nocom{margin:-6px 0 14px;padding:10px 14px;border-radius:12px;background:#e3f4e6;color:#1d6b33;font-weight:600;font-size:15px}
+.adband .nocom{display:inline-block;margin:10px 0 0;font-size:14px}
+.pkgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px;margin:0 0 16px}
+.pk{border:1.5px solid var(--line);border-radius:14px;padding:14px;cursor:pointer;background:var(--bg);text-align:left;color:var(--ink);font:inherit}
+.pk[aria-pressed=true]{border-color:var(--or);box-shadow:0 0 0 2px var(--or) inset}
+.pk h3{font-size:17px;font-weight:600;margin:0 0 2px}.pk .pr{font:700 22px var(--fh);color:var(--loc)}.pk .pr small{font-size:13px;font-weight:400;color:var(--mut)}
+.pk ul{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--mut)}.pk li{margin:2px 0}
+.bd.ad{background:#fff4d6;color:#7a5a00}
+#fAd{min-height:40px;display:inline-flex;align-items:center;padding:0 12px;border-radius:10px;border:1px solid var(--line);color:var(--ink);background:transparent;font:500 14px var(--fb);cursor:pointer}
+footer{border-top:1px solid var(--line);padding:18px max(5vw,16px) 30px;color:var(--mut);font-size:13px}
+@media(max-width:760px){.hd{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.top{background:linear-gradient(180deg,rgba(45,10,36,.15) 0,rgba(91,26,74,.7) 230px,#5b1a4a 330px),url(hero.jpg) center top/100% auto no-repeat,#5b1a4a;padding-top:190px}.tools{position:static}.tools .btn{min-height:40px;font-size:14px;padding:0 12px}}
+@media(max-width:520px){.zl .n{font-size:18px}.zl .c{font-size:16px}.zl .cb{r:16}.wl{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.toast,.zone{transition:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="bar1"><span></span>
+    <div class="langs" role="group" aria-label="Language">
+      <button data-lang="th">TH</button><button data-lang="en">EN</button><button data-lang="de">DE</button>
+    </div></div>
+  <div class="hd">
+    <div>
+      <h1 id="h1">ร้านนวดไทยในฮัมบูร์ก</h1>
+      <p id="intro"></p>
+      <div class="chips" id="chips" role="group" hidden></div>
+    </div>
+    <nav class="dist" aria-labelledby="dT">
+      <div class="dh"><h2 id="dT"></h2><span id="dTot"></span></div>
+      <div id="drows" role="group"></div>
+      <a class="dmap" id="dAdd" target="_blank" rel="noopener"></a>
+      <a class="dmap" id="dMap" target="_blank" rel="noopener" href="https://www.google.com/maps/search/Thaimassage+Hamburg"></a>
+    </nav>
+  </div>
+</div></header>
+
+<div class="tools"><div class="wrap row">
+  <label class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" autocomplete="off"></label>
+  <button class="btn" id="favOnly" aria-pressed="false"></button>
+  <button class="btn" id="bkOnly" aria-pressed="false"></button>
+  <button class="btn" id="pmOnly" aria-pressed="false"></button>
+  <button class="btn" id="opOnly" aria-pressed="false"></button>
+  <button class="btn" id="suOnly" aria-pressed="false"></button>
+  <button class="btn" id="ltOnly" aria-pressed="false"></button>
+  <select class="btn" id="sort"></select>
+</div></div>
+
+<main><div class="wrap">
+  <p class="meta" id="meta"></p>
+  <div class="grid" id="grid"></div>
+</div></main>
+
+<section class="adband"><div class="wrap adin"><div><h2 id="adH"></h2><p id="adP"></p><p class="nocom" id="adNo2"></p></div><button class="btn pri" id="adBtn" type="button"></button></div></section>
+<footer><div class="wrap"><p class="policy" id="policy"></p><div id="foot"></div>
+  <div class="flinks"><a href="#impressum" id="fImp">Impressum</a><a href="#datenschutz" id="fDs">Datenschutz</a><a id="fAdd" target="_blank" rel="noopener"></a><button type="button" id="fAd"></button><button id="fInst" hidden></button></div>
+  <p class="ios" id="iosHint" hidden></p></div></footer>
+<div class="ov" id="lov"><div class="dlg lg" role="dialog" aria-modal="true" aria-label="Legal"><div id="lgBody"></div><div class="dact"><button class="btn pri" id="lgClose"></button></div></div></div>
+<div class="ov" id="ov"><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="bkT">
+  <h2 id="bkT"></h2><p class="sub" id="bkSub"></p>
+  <form id="bkF" novalidate>
+    <div class="fld"><span id="lSvc"></span><div class="seg" id="svc"></div></div>
+    <div class="fld"><span id="lDur"></span><div class="seg" id="dur"></div></div>
+    <div class="two">
+      <label class="fld"><span id="lDate"></span><input type="date" id="bDate" required></label>
+      <label class="fld"><span id="lTime"></span><select id="bTime" required></select></label>
+    </div>
+    <div class="two">
+      <label class="fld"><span id="lName"></span><input id="bName" autocomplete="name" required></label>
+      <label class="fld"><span id="lPhone"></span><input id="bPhone" type="tel" autocomplete="tel" required></label>
+    </div>
+    <label class="fld"><span id="lNote"></span><textarea id="bNote" rows="2"></textarea></label>
+    <p class="err" id="bErr" role="alert"></p>
+    <div class="dact"><button type="button" class="btn" id="bCancel"></button><button type="submit" class="btn pri" id="bGo"></button></div>
+    <p class="fine" id="bFine"></p>
+  </form>
+  <div id="bDone" hidden>
+    <p class="sum" id="bSum"></p>
+    <div class="dact"><button type="button" class="btn" id="bCopy"></button><a class="btn pri" id="bWa" target="_blank" rel="noopener">WhatsApp</a></div>
+    <p class="fine" id="bFine2"></p>
+  </div>
+</div></div>
+<div class="ov" id="gov"><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="gvT">
+  <h2 id="gvT"></h2><p class="sub" id="gvSub"></p>
+  <div class="gvi" aria-live="polite"><img src="gutschein.jpg" alt="Geschenkgutschein Tanawadee Thai Massage &amp; Lashes" width="950" height="428"><span class="gx" id="gxTo" style="left:10.6%;bottom:37.6%;max-width:27%"></span><span class="gx" id="gxVal" style="left:50.2%;bottom:37.6%;max-width:15.5%"></span><span class="gx" id="gxFrom" style="left:11.8%;bottom:27.3%;max-width:26%"></span><span class="gx" id="gxAmt" style="left:47.4%;bottom:27.3%;max-width:17%"></span></div>
+  <p class="gmsg" id="gpM"></p>
+  <p class="fine" id="gAk" style="margin:-8px 0 14px"></p>
+  <form id="gvF" novalidate>
+    <div class="fld"><span id="glA"></span><div class="amt"><div class="seg" id="gAmt"></div><input id="gOwn" type="number" min="20" max="500" step="5" inputmode="numeric"></div></div>
+    <div class="two"><label class="fld"><span id="glTo"></span><input id="gTo" maxlength="40"></label><label class="fld"><span id="glFrom"></span><input id="gFrom" maxlength="40"></label></div>
+    <label class="fld"><span id="glMsg"></span><textarea id="gMsg" rows="2" maxlength="140"></textarea></label>
+    <div class="fld"><span id="glDel"></span><div class="seg" id="gDel"></div></div>
+    <div class="two"><label class="fld"><span id="glName"></span><input id="gName" autocomplete="name"></label><label class="fld"><span id="glCon"></span><input id="gCon" autocomplete="email"></label></div>
+    <p class="err" id="gErr" role="alert"></p>
+    <div class="dact"><button type="button" class="btn" id="gCancel"></button><button type="submit" class="btn pri" id="gGo"></button></div>
+  </form>
+  <div id="gDone" hidden>
+    <p class="sum" id="gSum"></p>
+    <div class="dact" id="gPay"></div>
+    <p class="fine" id="gFine"></p>
+  </div>
+</div></div>
+<div class="ov" id="aov"><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="adT">
+  <h2 id="adT"></h2><p class="sub" id="adSub"></p>
+  <p class="nocom" id="adNo"></p>
+  <div class="pkgs" id="adPk"></div>
+  <form id="adF" novalidate>
+    <div class="two"><label class="fld"><span id="alS"></span><input id="aS" autocomplete="organization"></label><label class="fld"><span id="alN"></span><input id="aN" autocomplete="name"></label></div>
+    <label class="fld"><span id="alP"></span><input id="aP" type="tel" autocomplete="tel"></label>
+    <p class="err" id="aErr" role="alert"></p>
+    <div class="dact"><button type="button" class="btn" id="aCancel"></button><button type="submit" class="btn pri" id="aGo"></button></div>
+    <p class="fine" id="aFine"></p>
+  </form>
+</div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+{
+const T={
+ th:{title:"ร้านนวดไทยในฮัมบูร์ก",intro:"รวมร้านนวดแผนไทยทั่วฮัมบูร์กไว้ในที่เดียว เลือกเขต ค้นหาชื่อร้าน ดูคะแนนรีวิว และจองออนไลน์ได้ทันที",hint:"แตะเขตเพื่อดูร้านในเขตนั้น แตะซ้ำเพื่อดูทั้งหมด",all:"ทั้งหมด",shops:"ร้าน",q:"ค้นหาชื่อร้าน ถนน หรือย่าน",fav:"♥ ร้านโปรด",
+  sbz:"เรียงตามเขต",srt:"เรียงตามคะแนนรีวิว",rev:"รีวิว",saz:"เรียง A–Z",splz:"เรียงตามรหัสไปรษณีย์",show:(a,b)=>`แสดง ${a} จาก ${b} ร้าน`,inbz:"เขต",favonly:"เฉพาะร้านโปรด",feat:"ร้านแนะนำ",
+  noaddr:"ยังไม่มีเลขที่อยู่ — กดแผนที่เพื่อค้นหา",tel:"โทร",open:"เปิด",ms:"จ–ส",daily:"ทุกวัน",book:"จองล่วงหน้าอย่างน้อย 1 ชม.",mail:"อีเมล",
+  map:"📍 แผนที่",call:"โทร",web:"เว็บไซต์",copy:"คัดลอกที่อยู่",copied:"คัดลอกที่อยู่แล้ว",favadd:"เก็บเป็นร้านโปรดแล้ว",favdel:"เอาออกจากร้านโปรดแล้ว",favlbl:"เก็บเป็นร้านโปรด",
+  none:"ไม่พบร้านที่ตรงกับการค้นหา",reset:"ล้างตัวกรอง",
+  foot:"ข้อมูลรวบรวมจากไดเรกทอรีสาธารณะ (hamburg.de, Treatwell, thai-massage.de, Fresha) เดือนพฤศจิกายน 2026 ร้านที่ไม่มีเลขที่อยู่มาจาก Treatwell ซึ่งบอกแค่ย่าน คะแนนรีวิวมาจาก Treatwell (ร้านที่ไม่มีคะแนนคือไม่มีใน Treatwell) เวลาเปิดและเบอร์โทรอาจเปลี่ยน กรุณาโทรเช็กก่อนไป",
+  imp:"ข้อมูลผู้ให้บริการ (Impressum)",ds:"ความเป็นส่วนตัว (Datenschutz)",close:"ปิด",inst:"📲 เพิ่มแอปไว้ที่หน้าจอ",ios:"บน iPhone: กดปุ่มแชร์ ⬆︎ แล้วเลือก \"เพิ่มไปยังหน้าจอโฮม\"",gv:"ซื้อบัตรของขวัญ",card:" ครั้ง",gO8:"ใช้ได้ถึง",gO9:"ราคาโปรใช้ได้ถึง",akt:(a,b)=>`ราคาโปรแพ็กเกจใช้ได้ถึง ${a} หลังจากนั้นยอดเงินที่จ่ายยังใช้แทนเงินสดได้เต็มจำนวนกับทุกบริการจนถึง ${b}`,gvT:"บัตรของขวัญ Tanawadee",gvSub:"มอบเวลาผ่อนคลายให้คนพิเศษ ใช้ได้กับทุกบริการ",gpK:"GUTSCHEIN · บัตรของขวัญ",gA:"มูลค่า",gOwn:"จำนวนอื่น €",gTo:"ให้ (ชื่อผู้รับ)",gFrom:"จาก",gMsg:"ข้อความ (ไม่บังคับ)",gDel:"รับบัตรทาง",d1:"บัตรในมือถือ ทาง WhatsApp",d2:"บัตรในมือถือ ทางอีเมล",d3:"รับที่ร้าน",gName:"ชื่อผู้ซื้อ",gCon:"อีเมลหรือเบอร์โทร",gGo:"ดำเนินการต่อ",gFor:"สำหรับ",gE1:"กรุณาเลือกมูลค่า 20–500 €",gE2:"กรุณากรอกชื่อและช่องทางติดต่อ",gHow:"ส่งคำสั่งซื้อทาง WhatsApp ร้านจะส่งรายละเอียดการชำระเงิน (โอน/PayPal) และส่งบัตรให้หลังได้รับเงิน",gHowPay:"ชำระเงินด้านล่าง แล้วส่งคำสั่งซื้อทาง WhatsApp ร้านจะส่งบัตรให้หลังได้รับเงิน",gMsgW:"สวัสดีค่ะ ขอสั่งซื้อบัตรของขวัญค่ะ",gO1:"มูลค่า",gO2:"ผู้รับ",gO3:"จาก",gO4:"ข้อความ",gO5:"รับทาง",gO6:"ผู้ซื้อ",gO7:"ติดต่อ",gWa:"ส่งคำสั่งซื้อทาง WhatsApp",adH:"คุณเป็นเจ้าของร้านนวดไทยใช่ไหม?",nocom:"ไม่มีค่าคอมมิชชั่น ไม่หักเปอร์เซ็นต์จากยอดขาย จ่ายแค่ค่ารายเดือนเท่านั้น",adP:"ให้ลูกค้าเห็นร้านคุณก่อนใคร เพิ่มรูปร้าน ปุ่มจอง และขึ้นบนสุดในเขตของคุณ",adBtn:"ลงโฆษณากับเรา",adT:"ลงโฆษณากับ Thai Massage Hamburg",adSub:"ทุกร้านลงรายชื่อฟรี เลือกแพ็กเกจเพื่อให้ลูกค้าเห็นร้านคุณมากขึ้น ยกเลิกได้ทุกเดือน",p0:"ฟรี",p0d:["ชื่อ ที่อยู่ เบอร์โทร","ปุ่มแผนที่และเว็บไซต์"],p1:"Premium",p1d:["ทุกอย่างในแบบฟรี","รูปร้านบนการ์ด","ขึ้นบนสุดในเขตของคุณ","ปุ่มจองออนไลน์/WhatsApp","แก้ไขข้อมูลได้ตลอด"],p2:"Top",p2d:["ทุกอย่างใน Premium","ขึ้นต้นรายการทุกเขต","กรอบสีทองให้การ์ดเด่นกว่า"],permo:"/เดือน",alS:"ชื่อร้าน",alN:"ชื่อผู้ติดต่อ",alP:"เบอร์โทร / WhatsApp",aGo:"ส่งคำขอทาง WhatsApp",aE:"กรุณากรอกชื่อร้านและเบอร์โทร",aFine:"ร้านที่ลงโฆษณาจะมีป้าย \"Anzeige\" ตามกฎหมาย เราจะติดต่อกลับภายใน 24 ชม.",adMsg:"สวัสดีค่ะ สนใจลงโฆษณาใน Thai Massage Hamburg",adPkL:"แพ็กเกจ",adlbl:"Anzeige",bk:"จองออนไลน์",add:"แจ้งร้านเปิดใหม่",addmsg:"สวัสดีค่ะ ขอแจ้งร้านนวดไทยเปิดใหม่ในฮัมบูร์ก\nชื่อร้าน:\nที่อยู่:\nเบอร์โทร:\nเว็บไซต์/Instagram:\nเวลาเปิด:",pick:"เลือกเขต",allmap:"ดูร้านนวดไทยทั้งหมดบน Google Maps",suf:"☀️ เปิดวันอาทิตย์",suonly:"เปิดวันอาทิตย์",sunb:"เปิดวันอาทิตย์",ltf:"🌙 เปิดถึง 21:00",ltonly:"เปิดถึง 21:00 ขึ้นไป",lateb:"เปิดถึง",rep:"⚑ แจ้งร้านไม่เหมาะสม",repsub:"แจ้งร้านไม่เหมาะสม/ข้อมูลผิด",policy:"แอปนี้รวมเฉพาะร้านนวดไทยแบบสุจริต ไม่รวมร้านที่มีบริการทางเพศแอบแฝง ถ้าพบร้านไม่เหมาะสมหรือข้อมูลผิด กด ⚑ เพื่อแจ้ง เราจะตรวจสอบและนำออก",pmf:"👫 นวดคู่",pmonly:"เฉพาะร้านที่มีนวดคู่",pm:"นวดคู่ (Paarmassage)",opf:"🟢 เปิดอยู่ตอนนี้",oponly:"เปิดอยู่ตอนนี้",isopen:"เปิดอยู่ตอนนี้",isclosed:"ปิดอยู่ตอนนี้",tusu:"อ.–อา.",su:"อา.",bkf:"📅 จองออนไลน์ได้",bkonly:"เฉพาะร้านที่จองออนไลน์ได้",bkT:"จองคิว Tanawadee",bkSub:"Grindelallee 139 · ทุกวัน 10:00–21:00 · ร้านจะยืนยันคิวกลับทาง WhatsApp",svc:"บริการ",dur:"ระยะเวลา",date:"วันที่",time:"เวลา",name:"ชื่อ",phone:"เบอร์โทร",note:"หมายเหตุ (ไม่บังคับ)",cancel:"ยกเลิก",go:"ตรวจสอบและส่ง",
+  s1:"นวดแผนไทย",s2:"นวดน้ำมันอโรมา",s3:"นวดลูกประคบ",s5:"นวดหินร้อน",s6:"นวดเท้า",s4:"ต่อขนตา",s7:"ดูแลขนตา / เติมขนตา",min:"นาที",notime:"ไม่มีเวลาว่างวันนี้ เลือกวันอื่น",
+  e1:"กรุณากรอกชื่อและเบอร์โทร",e2:"กรุณาเลือกวันและเวลา",e3:"ต้องจองล่วงหน้าอย่างน้อย 1 ชั่วโมง",
+  fine:"ร้านมีเตียงเดียว คิวยืนยันเมื่อร้านตอบกลับเท่านั้น จ่ายเงินที่ร้าน ยกเลิกฟรีโดยโทรแจ้ง",fine2:"กด WhatsApp เพื่อส่งข้อความที่เตรียมไว้ หรือคัดลอกไปส่งเอง/โทร 0176 87848893",copy2:"คัดลอกข้อความ",copied2:"คัดลอกข้อความแล้ว",
+  msg:"สวัสดีค่ะ ขอจองคิวค่ะ",mS:"บริการ",mD:"วันที่",mT:"เวลา",mN:"ชื่อ",mP:"เบอร์",mX:"หมายเหตุ",
+  tana:"นวดไทยและต่อขนตา · พูดไทย เยอรมัน อังกฤษ · ใกล้ป้ายรถเมล์ Bezirksamt Eimsbüttel",suwan:"เดิน 5 นาทีจาก U Wandsbek Markt"},
+ en:{title:"Thai massage in Hamburg",intro:"Every Thai massage studio in Hamburg in one place. Choose a district, search by name, compare ratings and book online.",hint:"Tap a district to see its studios, tap again to show all",all:"All",shops:"studios",q:"Search name, street or area",fav:"♥ Favourites",
+  sbz:"Sort by district",srt:"Sort by rating",rev:"reviews",saz:"Sort A–Z",splz:"Sort by postcode",show:(a,b)=>`Showing ${a} of ${b} studios`,inbz:"District",favonly:"favourites only",feat:"Recommended",
+  noaddr:"No street address yet — tap Map to search",tel:"Phone",open:"Open",ms:"Mon–Sat",daily:"Daily",book:"Book at least 1 hour ahead",mail:"Email",
+  map:"📍 Map",call:"Call",web:"Website",copy:"Copy address",copied:"Address copied",favadd:"Saved to favourites",favdel:"Removed from favourites",favlbl:"Save as favourite",
+  none:"No studios match your search",reset:"Clear filters",
+  foot:"Compiled from public directories (hamburg.de, Treatwell, thai-massage.de, Fresha), November 2026. Studios without a street address come from Treatwell, which lists only the area. Ratings are from Treatwell (studios without a rating are not listed there). Hours and phone numbers may change — please call ahead.",
+  imp:"Legal notice (Impressum)",ds:"Privacy",close:"Close",inst:"📲 Add app to home screen",ios:"On iPhone: tap Share ⬆︎, then \"Add to Home Screen\"",gv:"Gift voucher",card:"-pack",gO8:"Valid until",gO9:"Package price valid until",akt:(a,b)=>`The package price applies until ${a}. After that, the amount paid can still be used in full for any treatment until ${b}.`,gvT:"Tanawadee gift voucher",gvSub:"Give someone special time to relax – valid for every treatment",gpK:"GIFT VOUCHER",gA:"Amount",gOwn:"Other €",gTo:"For (recipient)",gFrom:"From",gMsg:"Message (optional)",gDel:"Delivery",d1:"Phone voucher via WhatsApp",d2:"Phone voucher via email",d3:"Pick up at studio",gName:"Your name",gCon:"Email or phone",gGo:"Continue",gFor:"For",gE1:"Please choose an amount of 20–500 €",gE2:"Please enter your name and contact",gHow:"Send your order via WhatsApp. The studio replies with payment details (bank transfer/PayPal) and sends the voucher once paid.",gHowPay:"Pay below, then send your order via WhatsApp. The studio sends the voucher once payment is received.",gMsgW:"Hello, I would like to order a gift voucher",gO1:"Amount",gO2:"For",gO3:"From",gO4:"Message",gO5:"Delivery",gO6:"Buyer",gO7:"Contact",gWa:"Send order via WhatsApp",adH:"Do you run a Thai massage studio?",nocom:"No commission, no percentage of your sales – just one flat monthly fee",adP:"Be seen first: add photos and a booking button and appear at the top of your district.",adBtn:"Advertise with us",adT:"Advertise on Thai Massage Hamburg",adSub:"Every studio is listed for free. Choose a package to reach more customers – cancel monthly.",p0:"Free",p0d:["Name, address, phone","Map and website buttons"],p1:"Premium",p1d:["Everything in Free","Studio photo on the card","Top of your district","Online booking/WhatsApp button","Edit your details anytime"],p2:"Top",p2d:["Everything in Premium","First in every district list","Gold frame that stands out"],permo:"/month",alS:"Studio name",alN:"Contact person",alP:"Phone / WhatsApp",aGo:"Send request via WhatsApp",aE:"Please enter studio name and phone",aFine:"Paid listings carry an \"Ad\" label as required by law. We will get back to you within 24 hours.",adMsg:"Hello, I am interested in advertising on Thai Massage Hamburg",adPkL:"Package",adlbl:"Ad",bk:"Book online",add:"Add a new studio",addmsg:"Hello, I would like to add a new Thai massage studio in Hamburg\nName:\nAddress:\nPhone:\nWebsite/Instagram:\nOpening hours:",pick:"Choose a district",allmap:"See all Thai massage studios on Google Maps",suf:"☀️ Open Sunday",suonly:"open on Sunday",sunb:"Open Sunday",ltf:"🌙 Open till 21:00",ltonly:"open till 21:00 or later",lateb:"Open till",rep:"⚑ Report",repsub:"Report studio / wrong info",policy:"This directory lists only legitimate Thai massage studios – no erotic or sexual services. If a listing is inappropriate or wrong, tap ⚑ to report it and we will check and remove it.",pmf:"👫 Couples massage",pmonly:"couples massage",pm:"Couples massage",opf:"🟢 Open now",oponly:"open now",isopen:"Open now",isclosed:"Closed now",tusu:"Tue–Sun",su:"Sun",bkf:"📅 Online booking",bkonly:"online booking only",bkT:"Book at Tanawadee",bkSub:"Grindelallee 139 · daily 10:00–21:00 · the studio confirms your slot on WhatsApp",svc:"Treatment",dur:"Duration",date:"Date",time:"Time",name:"Name",phone:"Phone",note:"Note (optional)",cancel:"Cancel",go:"Review & send",
+  s1:"Traditional Thai massage",s2:"Aroma oil massage",s3:"Herbal compress massage",s5:"Hot stone massage",s6:"Foot massage",s4:"Lash extensions",s7:"Lash care / refill",min:"min",notime:"No times left today, pick another day",
+  e1:"Please enter your name and phone",e2:"Please choose a date and time",e3:"Bookings need at least 1 hour notice",
+  fine:"One-bed studio: your slot is confirmed only once the studio replies. Pay at the studio. Free cancellation by phone.",fine2:"Tap WhatsApp to send the prepared message, or copy it / call 0176 87848893",copy2:"Copy message",copied2:"Message copied",
+  msg:"Hello, I'd like to book an appointment",mS:"Treatment",mD:"Date",mT:"Time",mN:"Name",mP:"Phone",mX:"Note",
+  tana:"Thai massage & lash extensions · Thai, German and English spoken · near bus stop Bezirksamt Eimsbüttel",suwan:"5 min walk from U Wandsbek Markt"},
+ de:{title:"Thaimassage in Hamburg",intro:"Alle Thaimassage-Studios in Hamburg an einem Ort. Bezirk wählen, nach Namen suchen, Bewertungen vergleichen und online buchen.",hint:"Bezirk antippen, um die Studios dort zu sehen – nochmal tippen für alle",all:"Alle",shops:"Studios",q:"Name, Straße oder Stadtteil suchen",fav:"♥ Favoriten",
+  sbz:"Nach Bezirk",srt:"Nach Bewertung",rev:"Bewertungen",saz:"A–Z",splz:"Nach PLZ",show:(a,b)=>`${a} von ${b} Studios`,inbz:"Bezirk",favonly:"nur Favoriten",feat:"Empfehlung",
+  noaddr:"Noch keine Hausnummer — über Karte suchen",tel:"Tel.",open:"Geöffnet",ms:"Mo–Sa",daily:"Täglich",book:"Mind. 1 Std. im Voraus buchen",mail:"E-Mail",
+  map:"📍 Karte",call:"Anrufen",web:"Website",copy:"Adresse kopieren",copied:"Adresse kopiert",favadd:"Zu Favoriten hinzugefügt",favdel:"Aus Favoriten entfernt",favlbl:"Als Favorit merken",
+  none:"Keine passenden Studios gefunden",reset:"Filter zurücksetzen",
+  foot:"Zusammengestellt aus öffentlichen Verzeichnissen (hamburg.de, Treatwell, thai-massage.de, Fresha), November 2026. Studios ohne Hausnummer stammen von Treatwell, das nur den Stadtteil nennt. Bewertungen von Treatwell (Studios ohne Bewertung sind dort nicht gelistet). Öffnungszeiten und Nummern können sich ändern – bitte vorher anrufen.",
+  imp:"Impressum",ds:"Datenschutz",close:"Schließen",inst:"📲 App zum Startbildschirm hinzufügen",ios:"Auf dem iPhone: Teilen ⬆︎ antippen, dann „Zum Home-Bildschirm“",gv:"Gutschein kaufen",card:"er-Karte",gO8:"Gültig bis",gO9:"Aktionsvorteil bis",akt:(a,b)=>`Der Aktionsvorteil (Paketpreis) gilt bis ${a}. Danach wird der gezahlte Betrag bis ${b} voll auf alle Behandlungen angerechnet.`,gvT:"Tanawadee Gutschein",gvSub:"Schenken Sie Entspannung – einlösbar für alle Behandlungen",gpK:"GUTSCHEIN",gA:"Betrag",gOwn:"Anderer €",gTo:"Für (Empfänger)",gFrom:"Von",gMsg:"Grußtext (optional)",gDel:"Zustellung",d1:"Handy-Gutschein per WhatsApp",d2:"Handy-Gutschein per E-Mail",d3:"Abholung im Studio",gName:"Ihr Name",gCon:"E-Mail oder Telefon",gGo:"Weiter",gFor:"Für",gE1:"Bitte einen Betrag von 20–500 € wählen",gE2:"Bitte Name und Kontakt angeben",gHow:"Bestellung per WhatsApp senden. Das Studio schickt Ihnen die Zahlungsdaten (Überweisung/PayPal) und den Gutschein nach Zahlungseingang.",gHowPay:"Unten bezahlen und danach die Bestellung per WhatsApp senden. Den Gutschein erhalten Sie nach Zahlungseingang.",gMsgW:"Hallo, ich möchte gern einen Gutschein bestellen",gO1:"Betrag",gO2:"Für",gO3:"Von",gO4:"Grußtext",gO5:"Zustellung",gO6:"Käufer",gO7:"Kontakt",gWa:"Bestellung per WhatsApp senden",adH:"Sie führen ein Thaimassage-Studio?",nocom:"Keine Provision, keine Umsatzbeteiligung – nur eine feste Monatsgebühr",adP:"Werden Sie zuerst gesehen: mit Fotos, Buchungsbutton und Top-Platz in Ihrem Bezirk.",adBtn:"Werben Sie bei uns",adT:"Werben bei Thai Massage Hamburg",adSub:"Der Basiseintrag ist für alle Studios kostenlos. Mit einem Paket erreichen Sie mehr Kunden – monatlich kündbar.",p0:"Basis",p0d:["Name, Adresse, Telefon","Karten- und Website-Button"],p1:"Premium",p1d:["Alles aus Basis","Studiofoto im Eintrag","Top-Platz in Ihrem Bezirk","Online-Buchung/WhatsApp-Button","Angaben jederzeit ändern"],p2:"Top",p2d:["Alles aus Premium","Ganz oben in jeder Bezirksliste","Goldener Rahmen für mehr Aufmerksamkeit"],permo:"/Monat",alS:"Name des Studios",alN:"Ansprechpartner/in",alP:"Telefon / WhatsApp",aGo:"Anfrage per WhatsApp senden",aE:"Bitte Studioname und Telefon angeben",aFine:"Bezahlte Einträge werden gesetzlich als „Anzeige“ gekennzeichnet. Wir melden uns innerhalb von 24 Stunden.",adMsg:"Hallo, ich interessiere mich für eine Anzeige bei Thai Massage Hamburg",adPkL:"Paket",adlbl:"Anzeige",bk:"Online buchen",add:"Neues Studio melden",addmsg:"Hallo, ich möchte ein neues Thaimassage-Studio in Hamburg eintragen\nName:\nAdresse:\nTelefon:\nWebsite/Instagram:\nÖffnungszeiten:",pick:"Bezirk wählen",allmap:"Alle Thaimassage-Studios in Google Maps",suf:"☀️ Sonntags offen",suonly:"sonntags geöffnet",sunb:"Sonntags offen",ltf:"🌙 Bis 21 Uhr",ltonly:"bis 21 Uhr oder länger",lateb:"Bis",rep:"⚑ Melden",repsub:"Studio melden / falsche Angaben",policy:"Dieses Verzeichnis enthält nur seriöse Thaimassage-Studios – keine erotischen Dienstleistungen. Unpassender oder falscher Eintrag? Mit ⚑ melden – wir prüfen und entfernen ihn.",pmf:"👫 Paarmassage",pmonly:"mit Paarmassage",pm:"Paarmassage",opf:"🟢 Jetzt geöffnet",oponly:"jetzt geöffnet",isopen:"Jetzt geöffnet",isclosed:"Jetzt geschlossen",tusu:"Di–So",su:"So",bkf:"📅 Online buchbar",bkonly:"nur online buchbar",bkT:"Termin bei Tanawadee",bkSub:"Grindelallee 139 · täglich 10:00–21:00 · das Studio bestätigt per WhatsApp",svc:"Behandlung",dur:"Dauer",date:"Datum",time:"Uhrzeit",name:"Name",phone:"Telefon",note:"Anmerkung (optional)",cancel:"Abbrechen",go:"Prüfen & senden",
+  s1:"Traditionelle Thai-Massage",s2:"Aromaölmassage",s3:"Kräuterstempelmassage",s5:"Hot-Stone-Massage",s6:"Fußmassage",s4:"Wimpernverlängerung",s7:"Wimpernpflege / Auffüllen",min:"Min.",notime:"Heute keine Zeiten mehr frei, bitte anderen Tag wählen",
+  e1:"Bitte Name und Telefon angeben",e2:"Bitte Datum und Uhrzeit wählen",e3:"Buchung mind. 1 Stunde im Voraus",
+  fine:"Studio mit einer Liege: Der Termin gilt erst nach Bestätigung. Bezahlung im Studio. Kostenlose Stornierung per Anruf.",fine2:"WhatsApp antippen, um die vorbereitete Nachricht zu senden – oder kopieren / anrufen: 0176 87848893",copy2:"Nachricht kopieren",copied2:"Nachricht kopiert",
+  msg:"Hallo, ich möchte gern einen Termin buchen",mS:"Behandlung",mD:"Datum",mT:"Uhrzeit",mN:"Name",mP:"Telefon",mX:"Anmerkung",
+  tana:"Thaimassage & Wimpernverlängerung · Thai, Deutsch, Englisch · nahe Bushaltestelle Bezirksamt Eimsbüttel",suwan:"5 Min. zu Fuß von U Wandsbek Markt"}
+};
+const BZ={mitte:"Hamburg-Mitte",altona:"Altona",eims:"Eimsbüttel",nord:"Hamburg-Nord",wands:"Wandsbek",harburg:"Harburg",berg:"Bergedorf"};
+const ZONES={
+ altona:{p:[[40,300],[46,262],[66,226],[104,204],[150,205],[176,191],[205,200],[222,228],[230,262],[222,288],[180,292],[130,298],[80,304]],x:132,y:250,s:"Altona"},
+ eims:{p:[[104,204],[98,168],[116,124],[140,84],[176,56],[205,60],[222,96],[232,140],[248,175],[258,205],[244,232],[222,228],[205,200],[176,191],[150,205]],x:176,y:126,s:"Eimsbüttel"},
+ nord:{p:[[205,60],[228,30],[270,20],[302,40],[306,90],[300,140],[318,170],[310,200],[290,212],[258,205],[248,175],[232,140],[222,96]],x:266,y:104,s:"Nord"},
+ wands:{p:[[302,40],[340,20],[382,30],[422,12],[472,38],[502,80],[542,110],[532,160],[496,190],[470,214],[430,222],[390,220],[350,215],[310,200],[318,170],[300,140],[306,90]],x:420,y:110,s:"Wandsbek"},
+ mitte:{p:[[222,228],[244,232],[258,205],[290,212],[310,200],[350,215],[390,220],[430,222],[445,250],[420,275],[380,280],[355,300],[340,335],[300,345],[270,320],[255,295],[230,262]],x:350,y:252,s:"Mitte"},
+ berg:{p:[[430,222],[470,214],[496,190],[532,200],[572,240],[588,290],[562,340],[512,366],[462,352],[420,332],[380,312],[355,300],[380,280],[420,275],[445,250]],x:510,y:285,s:"Bergedorf"},
+ harburg:{p:[[40,300],[80,304],[130,298],[180,292],[222,288],[230,262],[255,295],[270,320],[300,345],[340,335],[355,300],[380,312],[420,332],[402,372],[352,396],[272,402],[192,392],[122,372],[72,342]],x:220,y:358,s:"Harburg"}
+};
+const SUB={mitte:"St. Georg · Altstadt · St. Pauli · HafenCity",altona:"Altona · Ottensen · Bahrenfeld · Lurup",eims:"Eimsbüttel · Rotherbaum · Harvestehude",nord:"Eppendorf · Winterhude · Barmbek · Uhlenhorst",wands:"Wandsbek · Bramfeld · Rahlstedt",harburg:"Harburg · Heimfeld · Neugraben",berg:"Bergedorf · Lohbrügge"};
+const smooth=pts=>{const n=pts.length,k=.22,lp=(a,b,t)=>[(a[0]+(b[0]-a[0])*t).toFixed(1),(a[1]+(b[1]-a[1])*t).toFixed(1)];let d="";for(let i=0;i<n;i++){const P=pts[(i-1+n)%n],C=pts[i],N=pts[(i+1)%n],a=lp(C,P,k),b=lp(C,N,k);d+=(i?" L":"M")+a[0]+","+a[1]+` Q${C[0]},${C[1]} ${b[0]},${b[1]}`}return d+"Z"};
+const S=[
+ {late:"21:00",sun:1,r:4.9,rc:38,bk:1,img:"tanawadee.jpg",n:"Tanawadee Thai Massage & Lashes",bz:"eims",st:"Rotherbaum",a:"Grindelallee 139, 20146",t:"0176 87848893",h:"daily|10:00–21:00",book:1,web:"https://www.tanawadee.de",wa:"4917687848893",ig:"tanawadee.thaimassage.lashes",mail:"tana.wadee.jaja@gmail.com",feat:1,note:"tana"},
+ {web:"https://baankorat.de/",bu:"https://baankorat.de/",pm:1,n:"Baan Korat Thaimassage",bz:"mitte",st:"St. Georg",a:"Danziger Straße 44, 20099",t:"040 84600814"},
+ {sun:1,n:"Drei Jai Thai Massage",bz:"mitte",st:"St. Georg",a:"St. Georgs Kirchhof 7, 20099",t:"040 28408585"},
+ {n:"A-Roon Thai Massage",bz:"mitte",st:"St. Georg",a:"St. Georgs Kirchhof 26, 20099"},
+ {n:"Wanida Trad. Thai-Massage",bz:"mitte",st:"St. Georg",a:"Koppel 107, 20099",t:"040 28008277"},
+ {bu:"https://www.treatwell.de/ort/nakhon-thai-wellness/",r:4.9,rc:142,n:"Nakhon Thai Wellness",bz:"mitte",st:"St. Georg",a:""},
+ {bu:"https://www.treatwell.de/ort/chang-thai-wellness/",r:4.7,rc:748,n:"Chang Thai Wellness",bz:"mitte",st:"Altstadt",a:"Ferdinandstraße 29-33, 20095",t:"040 32508766"},
+ {sun:1,h:"daily|11:00–20:00",web:"https://thaimassage-nikolai-hopfenmarkt.de/",bu:"https://www.treatwell.de/ort/tawan-spa2-thai-massage-gbr/",r:4.8,rc:344,n:"Tawan Spa 2 & Thai Massage",bz:"mitte",st:"Altstadt",a:"Hopfenmarkt 31, 20457"},
+ {n:"Thai Hau Massage & Spa",bz:"mitte",st:"HafenCity",a:"Shanghaiallee 10, 20457",t:"040 76480082"},
+ {sun:1,n:"Petcharat Thai Wellness",bz:"mitte",st:"Neustadt",a:"ABC-Straße 44-46, 20354",t:"040 60009100"},
+ {n:"Rose's Thai Organic Spa",bz:"mitte",st:"Neustadt",a:"ABC-Straße 46, 20354",t:"040 35004400"},
+ {pm:1,bu:"https://www.treatwell.de/ort/chom-thai-wellness/",r:4.9,rc:948,n:"Chom Thai Wellness",bz:"mitte",st:"St. Pauli",a:"Hein-Hoyer-Straße 24, 20359",t:"040 52153030"},
+ {web:"https://www.tabtim-massage.de/",bu:"https://www.tabtim-massage.de/",n:"Tabtim Thai-Massage",bz:"mitte",st:"St. Pauli",a:"Hein-Hoyer-Straße 56, 20359",t:"01512 9429255"},
+ {n:"Thai Massage Maithai",bz:"mitte",st:"Borgfelde",a:"Bürgerweide 10c, 20535",t:"040 23849806"},
+ {n:"Montra Thai Massage",bz:"mitte",st:"Hohenfelde",a:"Lübecker Straße 25a, 22087",t:"040 27145852"},
+ {n:"Phetchabun Nuad Thai",bz:"mitte",st:"Hohenfelde",a:"Mühlendamm 17, 22087",t:"040 26106144"},
+ {n:"Tara Thaimassage",bz:"mitte",st:"Hohenfelde",a:"Mühlendamm 82a, 22087"},
+ {n:"Sangchan Thaimassage",bz:"mitte",st:"Hohenfelde",a:"Papenhuder Straße 57, 22087"},
+ {bu:"https://www.treatwell.de/ort/naboon/",r:4.9,rc:53,n:"NaBoon",bz:"mitte",st:"Hohenfelde",a:""},
+ {bu:"https://www.treatwell.de/ort/friendly-thai-massage/",r:4.7,rc:14,n:"Friendly Thai Massage",bz:"mitte",st:"Hohenfelde (Lübecker Straße)",a:""},
+ {bu:"https://www.treatwell.de/ort/relax-thaimassagen/",r:4.2,rc:25,n:"Relax Thaimassagen",bz:"mitte",st:"Billstedt",a:""},
+ {n:"Thai Massage Wilhelmsburg",bz:"mitte",st:"Wilhelmsburg",a:"Moorwerder Norderdeich 78, 21109",t:"01514 5047733"},
+ {web:"https://www.thai-wellness-hamburg.de/",pm:1,bu:"https://www.treatwell.de/ort/thai-wellness-hamburg/",r:4.9,rc:1855,n:"Thai Wellness Hamburg",bz:"altona",st:"Bahrenfeld",a:"Von-Sauer-Straße 42a, 22761",t:"01575 6000334",h:"ms|10:00–20:00"},
+ {n:"CHALISA Thai Wellness & Spa",bz:"altona",st:"Bahrenfeld",a:"Bahrenfelder Chaussee 53, 22761",t:"0176 20347098"},
+ {bu:"https://www.treatwell.de/ort/phens-wellness-und-massagen-bahrenfeld/",r:4.9,rc:43,n:"Phen's Wellness und Massagen",bz:"altona",st:"Bahrenfeld",a:""},
+ {pm:1,bu:"https://www.treatwell.de/ort/phen-s-wellness-und-massagen-friedensallee/",r:4.9,rc:1093,n:"Phen's Wellness und Massagen Friedensallee",bz:"altona",st:"Ottensen",a:""},
+ {late:"21:00",bu:"https://www.treatwell.de/ort/chalisa-wellness-spa-massage/",r:4.9,rc:270,n:"Chalisa Wellness & Spa",bz:"altona",st:"Altona-Altstadt",a:"Max-Brauer-Allee 148, 22765",t:"040 33456827"},
+ {n:"Mali Thai-Massage",bz:"altona",st:"Altona-Altstadt",a:"Breite Straße 104, 22767"},
+ {sun:1,h:"tusu|10:00–20:00",web:"https://www.anchanthaimassage.de/",pm:1,bu:"https://www.treatwell.de/ort/anchan-thaimassage-wellness/",r:4.9,rc:1601,n:"Anchan Thaimassage & Wellness",bz:"altona",st:"Altona-Nord",a:"Kieler Straße 60, 22769",t:"040 30093220"},
+ {h:"ms|11:30–20:00",web:"https://www.thai-massage.hamburg/",bu:"https://www.thai-massage.hamburg/",n:"Ban Somrit Thai Massage",bz:"altona",st:"Altona-Nord",a:"Stresemannstraße 169, 22769",t:"0176 23766411"},
+ {n:"Rian Thai Massage",bz:"altona",st:"Altona-Nord",a:"Stresemannstraße 167, 22769",t:"040 36913506"},
+ {n:"Onjamnong Phuluang",bz:"altona",st:"Sternschanze",a:"Stresemannstraße 13, 22769",t:"040 44465547"},
+ {bu:"https://www.treatwell.de/ort/suai-thai-massage/",r:4.8,rc:5829,n:"Suai Thai Massage",bz:"altona",st:"Sternschanze",a:"Schulterblatt 125, 20357"},
+ {n:"Changmai-Thaimassage",bz:"altona",st:"Lurup",a:"Luruper Hauptstraße 270c, 22547",t:"040 28577213"},
+ {pm:1,bu:"https://www.treatwell.de/ort/spa-thai-massage-hamburg/",r:4.7,rc:1466,n:"Spa - Thai Massage - Hamburg",bz:"altona",st:"Lurup",a:""},
+ {bu:"https://www.treatwell.de/ort/sambaydee-thaimassage/",r:5.0,rc:2,n:"Neu Sambaydee Thaimassage",bz:"altona",st:"Groß Flottbek",a:""},
+ {n:"Samran Traditionelle Thai Massage",bz:"altona",st:"Sülldorf",a:"Schenefelder Landstraße 160, 22589"},
+ {bu:"https://www.treatwell.de/ort/peitong-spa-massagen/",r:4.8,rc:670,n:"Peitong Spa Massagen",bz:"altona",st:"Rissen",a:""},
+ {n:"Baan Siam Massage & Spa",bz:"eims",st:"Eimsbüttel",a:"Müggenkampstraße 11, 20257",t:"040 50719646"},
+ {n:"YING Thai-Massage Wellness & Spa",bz:"eims",st:"Eimsbüttel",a:"Methfesselstraße 65, 20257",t:"0176 11872222"},
+ {bu:"https://www.treatwell.de/ort/siri-thai-wellness/",r:4.8,rc:1861,n:"Siri Thai Wellness",bz:"eims",st:"Eimsbüttel",a:"Osterstraße 173, 20255"},
+ {n:"Maila Thaimassage",bz:"eims",st:"Eimsbüttel",a:"Osterstraße 147, 20255",t:"0176 27720302"},
+ {bu:"https://www.treatwell.de/ort/pat-s-wellness-spa-thaimassage/",r:4.7,rc:1879,n:"Pat's Wellness & Spa Thaimassage",bz:"eims",st:"Eimsbüttel",a:"Osterstraße 71, 20259",t:"040 43213570",h:"ms|10:00–20:00"},
+ {n:"BSC Thaimassage",bz:"eims",st:"Eimsbüttel",a:"Eppendorfer Weg 64, 20259",t:"040 43910816"},
+ {pm:1,bu:"https://www.treatwell.de/ort/mue-thai-massage-1/",r:4.6,rc:749,n:"Mue-Thai Massage",bz:"eims",st:"Eimsbüttel",a:""},
+ {n:"Jindee Thaimassage",bz:"eims",st:"Eimsbüttel",a:"Margaretenstraße 58, 20357"},
+ {bu:"https://www.treatwell.de/ort/khacha-thaiwellness/",r:4.4,rc:466,n:"Khacha Thaiwellness",bz:"eims",st:"Stellingen",a:""},
+ {n:"Khwayci Thaimassage",bz:"eims",st:"Niendorf",a:"Nordalbingerweg 19, 22455"},
+ {n:"Nanta Thai Massage",bz:"eims",st:"Eidelstedt",a:"Eidelstedter Platz 4, 22523"},
+ {late:"21:00",n:"Chokdee Thaimassage",bz:"eims",st:"Harvestehude",a:"Grindelberg 61, 20144",t:"040 87509951"},
+ {web:"https://w-smile.de/",pm:1,bu:"https://www.treatwell.de/ort/wasanas-smile-traditionelle-thaimassage-hamburg-harvestehude-1/",r:4.9,rc:991,n:"Wasana's Smile Thaimassage",bz:"eims",st:"Harvestehude",a:"Jungfrauenthal 7, 20149",t:"040 607769910"},
+ {bu:"https://www.treatwell.de/ort/ampha-thai-massage/",r:4.8,rc:35,n:"Ampha Thai-Massage",bz:"eims",st:"Harvestehude",a:"Hansastraße 23, 20149"},
+ {sun:1,h:"ms|10:00–20:00;su|12:00–20:00",web:"https://www.my-thai-spa.de/",pm:1,bu:"https://www.treatwell.de/ort/my-thai-spa-wellness-thai-massage-rotherbaum/",r:4.7,rc:2822,n:"MY THAI SPA Wellness & Thai Massage",bz:"eims",st:"Rotherbaum",a:"Schlüterstraße 84, 20146",t:"040 57241819"},
+ {n:"Siam Classic Massage",bz:"eims",st:"Rotherbaum",a:"Rappstraße 2, 20146"},
+ {web:"https://www.thai-massage-hh.de/",pm:1,n:"Bann Samrit Thaimassage",bz:"eims",st:"Hoheluft-West",a:"Gärtnerstraße 80, 20253",t:"040 57015334"},
+ {n:"Nattha Thaimassage & Wellness",bz:"eims",st:"Hoheluft-West",a:"Gärtnerstraße 35, 20253",t:"0152 24580228"},
+ {bu:"https://www.treatwell.de/ort/tarnthong-thaimassage-wellness/",r:4.8,rc:521,n:"TarnThong Thaimassage & Wellness",bz:"eims",st:"Hoheluft",a:""},
+ {web:"https://w-smile.de/",bu:"https://www.treatwell.de/ort/wasana-s-smile-traditionelle-thaimassage-hamburg-eppendorf/",r:4.9,rc:2061,n:"Wasana's Smile Thaimassage",bz:"nord",st:"Eppendorf",a:"Eppendorfer Landstraße 163, 20251",t:"040 87078560"},
+ {web:"https://www.chalisa-wellness-eppendorf.de/",pm:1,bu:"https://www.treatwell.de/ort/chalisa-wellness-spa/",r:4.9,rc:22,n:"Chalisa Wellness & Spa Eppendorf",bz:"nord",st:"Eppendorf",a:"Curschmannstraße 5, 20251",t:"040 38686369"},
+ {n:"Itthaima Thaimassage",bz:"nord",st:"Eppendorf",a:"Eppendorfer Landstraße 33"},
+ {bu:"https://www.treatwell.de/ort/namphet-thai-massage/",r:4.7,rc:1301,n:"Namphet Thai Massage",bz:"nord",st:"Eppendorf",a:""},
+ {bu:"https://www.treatwell.de/ort/sai-lom-thai-massage-hamburg/",r:4.8,rc:23,n:"Sai Lom Thai Massage",bz:"nord",st:"Eppendorf (Geschwister-Scholl-Straße)",a:""},
+ {pm:1,bu:"https://www.treatwell.de/ort/charming-thai-massage-spa/",r:4.8,rc:575,n:"Charming Thai Massage & Spa",bz:"nord",st:"Barmbek-Nord",a:"Habichtsplatz 1, 22307",t:"040 88359965",h:"ms|10:00–20:00"},
+ {bu:"https://www.treatwell.de/ort/thai-massage-pai/",r:4.7,rc:91,n:"Thai Massage Pai",bz:"nord",st:"Barmbek-Nord",a:"Bramfelder Straße 76, 22305"},
+ {n:"Phuket Thaimassage Hamburg",bz:"nord",st:"Barmbek-Nord",a:"Richeystraße 2, 22309",t:"040 81971095"},
+ {late:"22:00",n:"Baan Thai Massage 1",bz:"nord",st:"Barmbek-Süd",a:"Humboldtstraße 50, 22083",t:"040 25497844"},
+ {n:"Chada Thaimassage",bz:"nord",st:"Barmbek-Süd",a:"Hamburger Straße 148, 22083",h:"ms|10:00–20:00",web:"https://chada-thaimassage.de"},
+ {pm:1,n:"Ploy Massage Hamburg",bz:"nord",st:"Barmbek-Süd",a:"Beethovenstraße 1, 22083",t:"040 60788848",web:"https://ploy-massage.de"},
+ {bu:"https://www.treatwell.de/ort/prajak-thaimassage/",r:4.9,rc:122,n:"Prajak Thaimassage",bz:"nord",st:"Barmbek-Süd",a:""},
+ {pm:1,bu:"https://www.treatwell.de/ort/yings-thai-spa-massage-und-wellness/",r:4.9,rc:716,n:"Yings Thai Spa Massage und Wellness",bz:"nord",st:"Barmbek-Süd (Dehnhaide)",a:""},
+ {n:"Pandarei Thaimassage",bz:"nord",st:"Barmbek-Süd",a:"Seumestraße 14"},
+ {bu:"https://www.treatwell.de/ort/khun-chang-thaimassage/",r:5.0,rc:19,n:"Khun Chang Thaimassage",bz:"nord",st:"Uhlenhorst",a:"Herderstraße 32, 22085"},
+ {n:"Lai Thai Massage & Wellness",bz:"nord",st:"Uhlenhorst",a:"Zimmerstraße 14, 22085"},
+ {web:"https://www.prakunthaimassage.de/",bu:"https://www.treatwell.de/ort/prakun-thai-massage/",r:4.7,rc:937,n:"Prakun Thai Massage",bz:"nord",st:"Uhlenhorst",a:"Winterhuder Weg 24, 22085",t:"040 22697033"},
+ {n:"Dara's Thai Wellness & Spa",bz:"nord",st:"Winterhude",a:"Braamkamp 20, 22297",t:"040 70973822"},
+ {bu:"https://www.treatwell.de/ort/thongtida/",r:4.8,rc:547,n:"Thongtida Thaimassage",bz:"nord",st:"Winterhude",a:"Andreasstraße 35"},
+ {bu:"https://www.treatwell.de/ort/bami-thaimassage/",r:5.0,rc:28,n:"Bami Thaimassage",bz:"nord",st:"Winterhude",a:""},
+ {bu:"https://www.treatwell.de/ort/thai-smile-massage/",r:4.9,rc:17,n:"Thai Smile Massage",bz:"nord",st:"Winterhude",a:""},
+ {bu:"https://www.treatwell.de/ort/dawan-traditionelle-thaimassage/",r:4.8,rc:154,n:"DAWAN Traditionelle Thaimassage",bz:"nord",st:"Langenhorn",a:"Tarpen 5"},
+ {n:"GINGPAI Traditionelle Thaimassage",bz:"nord",st:"Langenhorn",a:"Langenhorner Chaussee 3"},
+ {pm:1,bu:"https://suwanratthaiwellness.setmore.com/",r:4.8,rc:844,n:"Suwanrat Thai Wellness",bz:"wands",st:"Wandsbek",a:"Wandsbeker Königstraße 17, 22041",t:"040 36846368",h:"ms|10:00–20:00",web:"https://www.suwanrat-thaiwellness.de",note:"suwan"},
+ {n:"Buabaansiam Thai Massage",bz:"wands",st:"Wandsbek",a:"Wandsbeker Marktstraße 146, 22041",t:"040 68873966"},
+ {n:"Wassana Thai Wellness",bz:"wands",st:"Wandsbek",a:"Wandsbeker Marktstraße 67, 22041",t:"040 60925789"},
+ {n:"Dee Thai-Massage",bz:"wands",st:"Wandsbek",a:"Friedrich-Ebert-Damm 93, 22047"},
+ {n:"Praiya Thai Spa",bz:"wands",st:"Marienthal",a:"Kielmannseggstraße 65, 22043",t:"0173 3604446"},
+ {bu:"https://www.treatwell.de/ort/baan-thai-2-hamburg/",r:4.7,rc:971,n:"Baan Thai Massage 2",bz:"wands",st:"Tonndorf",a:"Ahrensburger Straße 151, 22045",t:"040 67045575"},
+ {n:"Asiamassage Chok Dee",bz:"wands",st:"Rahlstedt",a:"Rahlstedter Straße 83, 22149",t:"01575 7093421"},
+ {n:"Mayuree Thaimassage",bz:"wands",st:"Bramfeld",a:"Bramfelder Chaussee 369, 22175"},
+ {n:"Pho Chai Thaimassage & Schule",bz:"wands",st:"Wellingsbüttel",a:"Saseler Chaussee 19, 22391"},
+ {n:"Chulee Thaimassage und Wellness",bz:"wands",st:"Poppenbüttel",a:"Müssenkoppel 22, 22399",t:"0176 81302366"},
+ {n:"MoonSann Bay Spa",bz:"harburg",st:"Heimfeld",a:"Eißendorfer Pferdeweg 17a, 21075",t:"040 79141632"},
+ {n:"Memory-Thaimassage",bz:"harburg",st:"Harburg",a:"Krummholzberg 11, 21073"},
+ {bu:"https://www.treatwell.de/ort/jk-thai-wellness/",r:4.8,rc:566,n:"JK Thai-Wellness",bz:"harburg",st:"Harburg",a:""},
+ {bu:"https://www.treatwell.de/ort/oiy-thai-massagen/",r:4.9,rc:699,n:"OIY Thai-Massage",bz:"harburg",st:"Neugraben",a:"Cuxhavener Straße 330"},
+ {bu:"https://www.treatwell.de/ort/baiyok-thai-wellnessmassage/",r:4.8,rc:678,n:"Baiyok Thai- & Wellnessmassage",bz:"berg",st:"Bergedorf",a:""},
+ {bu:"https://www.treatwell.de/ort/jinda-massagen/",r:4.9,rc:4074,n:"Jinda Massagen",bz:"berg",st:"Bergedorf",a:""},
+ {n:"Coco Thaimassagen",bz:"berg",st:"Bergedorf",a:"Fünfhausener Straße 81a"}
+].map((s,i)=>({...s,id:i,plz:(s.a.match(/\b(\d{5})\b/)||[,"99999"])[1]}));
+
+const $=id=>document.getElementById(id);
+const store=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
+let L=store("thm-lang");if(!T[L])L="th";
+let st={q:"",bz:"",fav:false,bko:false,pmo:false,opo:false,suo:false,lto:false,sort:"bz"},favs=new Set();
+try{favs=new Set(JSON.parse(store("thm-favs")||"[]"))}catch(e){}
+const t=k=>T[L][k];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cnt=k=>S.filter(s=>s.bz===k).length;
+const full=s=>s.a?s.a+(/\d{5}/.test(s.a)?" Hamburg":", Hamburg"):s.st+", Hamburg";
+const map=s=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(s.n+" "+full(s));
+const DAYS={ms:[1,2,3,4,5,6],daily:[0,1,2,3,4,5,6],tusu:[2,3,4,5,6,0],su:[0]};
+const hrs=s=>{if(!s.h)return"";return s.h.split(";").map(x=>{const[d,tm]=x.split("|");return `${t(d)} ${tm}`}).join(", ")+(s.book?` · ${t("book")}`:"")};
+const berlin=()=>{try{const f=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Berlin",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());const g=k=>f.find(x=>x.type===k).value;return{d:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(g("weekday")),m:(+g("hour")%24)*60+ +g("minute")}}catch(e){const n=new Date();return{d:n.getDay(),m:n.getHours()*60+n.getMinutes()}}};
+const openNow=s=>{if(!s.h)return null;const b=berlin();return s.h.split(";").some(x=>{const[d,tm]=x.split("|");const[a,c]=tm.split("–").map(v=>{const[H,M]=v.split(":");return +H*60+ +M});return DAYS[d].includes(b.d)&&b.m>=a&&b.m<c})};
+const heart='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4h2c.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg>';
+
+function drawMap(){
+  const max=Math.max(...Object.keys(BZ).map(cnt));
+  $("dT").textContent=t("pick");$("dTot").textContent=`${S.length} ${t("shops")}`;
+  $("drows").innerHTML=`<button class="dr" data-bz="" aria-pressed="${!st.bz}"><span><b>${t("all")}</b><small>Hamburg</small></span><span class="n">${S.length}</span></button>`+Object.entries(BZ).map(([k,v])=>{const c=cnt(k);return `<button class="dr" data-bz="${k}" aria-pressed="${st.bz===k}"><span><b>${v}</b><small>${SUB[k]}</small></span><span class="n">${c}</span><span class="bar"><i style="width:${(c/max*100).toFixed(0)}%"></i></span></button>`}).join("");
+  $("dMap").textContent="📍 "+t("allmap");
+}
+function goTana(){st.bz="";st.q="";$("q").value="";chips();drawMap();render();const c=document.querySelector(".c.feat");if(c)c.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})}
+function chips(){
+  $("chips").innerHTML=`<button class="chip" data-bz="" aria-pressed="${!st.bz}">${t("all")}<small>${S.length}</small></button>`+
+   Object.entries(BZ).map(([k,v])=>`<button class="chip" data-bz="${k}" aria-pressed="${st.bz===k}">${v}<small>${cnt(k)}</small></button>`).join("");
+}
+function texts(){
+  document.documentElement.lang=L;document.title=t("title");
+  $("h1").textContent=t("title");$("intro").textContent=t("intro");
+  $("q").placeholder=t("q");$("favOnly").textContent=t("fav");$("bkOnly").textContent=t("bkf");$("pmOnly").textContent=t("pmf");$("opOnly").textContent=t("opf");$("suOnly").textContent=t("suf");$("ltOnly").textContent=t("ltf");$("foot").textContent=t("foot");
+  $("sort").innerHTML=["bz","rt","az","plz"].map(v=>`<option value="${v}"${st.sort===v?" selected":""}>${t("s"+v)}</option>`).join("");
+  $("sort").setAttribute("aria-label",t("sbz"));
+  document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===L));
+}
+function render(){
+  const q=st.q.trim().toLowerCase(),ord=Object.keys(BZ);
+  let R=S.filter(s=>(!st.bz||s.bz===st.bz)&&(!st.fav||favs.has(s.id))&&(!st.bko||s.bk||s.bu)&&(!st.pmo||s.pm)&&(!st.opo||openNow(s))&&(!st.suo||s.sun)&&(!st.lto||s.late)&&(!q||(s.n+" "+s.a+" "+s.st+" "+BZ[s.bz]).toLowerCase().includes(q)));
+  R.sort((a,b)=>(b.feat||0)-(a.feat||0)||(b.sp||0)-(a.sp||0)||(st.sort==="rt"?((b.r||0)-(a.r||0)||(b.rc||0)-(a.rc||0)):st.sort==="az"?a.n.localeCompare(b.n):st.sort==="plz"?a.plz.localeCompare(b.plz):ord.indexOf(a.bz)-ord.indexOf(b.bz)||a.st.localeCompare(b.st)));
+  $("meta").textContent=t("show")(R.length,S.length)+(st.bz?` · ${t("inbz")} ${BZ[st.bz]}`:"")+(st.fav?` · ${t("favonly")}`:"")+(st.bko?` · ${t("bkonly")}`:"")+(st.pmo?` · ${t("pmonly")}`:"")+(st.opo?` · ${t("oponly")}`:"")+(st.suo?` · ${t("suonly")}`:"")+(st.lto?` · ${t("ltonly")}`:"");
+  $("grid").innerHTML=R.length?R.map(s=>`<article class="c${s.feat||s.sp===2?" feat":""}">
+    ${s.img?`<div class="cimg"><img src="${s.img}" alt="${esc(s.n)}" loading="lazy" width="900" height="597"></div>`:""}
+    ${s.feat?`<span class="tag">${t("feat")}</span>`:""}
+    <button class="fav" data-fav="${s.id}" aria-pressed="${favs.has(s.id)}" aria-label="${t("favlbl")}">${heart}</button>
+    <h3>${esc(s.n)}</h3>
+    <div class="loc">${esc(s.st)} · ${BZ[s.bz]}</div>
+    ${(s.pm||s.h||s.sun||s.late||s.sp)?`<div class="badges">${s.sp?`<span class="bd ad">${t("adlbl")}</span>`:""}${s.h?(openNow(s)?`<span class="bd op">● ${t("isopen")}</span>`:`<span class="bd cl">${t("isclosed")}</span>`):""}${s.pm?`<span class="bd">👫 ${t("pm")}</span>`:""}${s.sun?`<span class="bd">☀️ ${t("sunb")}</span>`:""}${s.late?`<span class="bd">🌙 ${t("lateb")} ${s.late}</span>`:""}</div>`:""}
+    ${s.r?`<div class="rt"><span class="st" aria-hidden="true">★</span><b>${s.r.toFixed(1)}</b><span>(${s.rc.toLocaleString(L==="de"?"de-DE":"en-US")} ${t("rev")} · Treatwell)</span></div>`:""}
+    <p class="addr">${s.a?esc(s.a)+(/\d{5}/.test(s.a)?" Hamburg":""):t("noaddr")}</p>
+    ${s.t?`<p class="addr tel">${t("tel")} ${esc(s.t)}</p>`:""}
+    ${s.h?`<p class="addr">${t("open")} ${esc(hrs(s))}</p>`:""}
+    ${s.note?`<p class="addr">${esc(t(s.note))}</p>`:""}
+    ${s.mail?`<p class="addr">${t("mail")} ${esc(s.mail)}</p>`:""}
+    <div class="acts">
+      ${s.bk?`<button class="btn" data-gv="1">🎁 ${t("gv")}</button>`:""}
+      ${s.bk?`<button class="btn pri" data-book="${s.id}">${t("bk")}</button>`:s.bu?`<a class="btn pri" href="${s.bu}" target="_blank" rel="noopener">${t("bk")}</a>`:""}
+      <a class="btn" href="${map(s)}" target="_blank" rel="noopener">${t("map")}</a>
+      ${s.t?`<a class="btn" href="tel:${s.t.replace(/\s/g,"")}">${t("call")}</a>`:""}
+      ${s.web?`<a class="btn" href="${s.web}" target="_blank" rel="noopener">${t("web")}</a>`:""}
+      ${s.wa?`<a class="btn" href="https://wa.me/${s.wa}" target="_blank" rel="noopener">WhatsApp</a>`:""}
+      ${s.ig?`<a class="btn" href="https://www.instagram.com/${s.ig}/" target="_blank" rel="noopener">Instagram</a>`:""}
+      <button class="btn" data-copy="${s.id}">${t("copy")}</button>
+      <a class="btn rep" href="mailto:tana.wadee.jaja@gmail.com?subject=${encodeURIComponent("Thai Massage Hamburg – "+t("repsub")+": "+s.n)}">${t("rep")}</a>
+    </div></article>`).join(""):`<div class="empty">${t("none")}<br><button class="btn" id="reset" style="margin-top:12px">${t("reset")}</button></div>`;
+}
+const B={svc:"s1",dur:60,last:null};
+const pad=n=>String(n).padStart(2,"0");
+const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+function bkTexts(){
+  ["bkT","bkSub"].forEach(k=>$(k).textContent=t(k));
+  [["lSvc","svc"],["lDur","dur"],["lDate","date"],["lTime","time"],["lName","name"],["lPhone","phone"],["lNote","note"],["bCancel","cancel"],["bGo","go"],["bFine","fine"],["bFine2","fine2"],["bCopy","copy2"]].forEach(([i,k])=>$(i).textContent=t(k));
+  $("svc").innerHTML=["s1","s2","s3","s5","s6","s4","s7"].map(k=>`<button type="button" data-svc="${k}" aria-pressed="${B.svc===k}">${t(k)}</button>`).join("");
+  $("dur").innerHTML=(B.svc==="s4"||B.svc==="s7"?[60,90,120]:B.svc==="s6"?[30,60]:B.svc==="s3"||B.svc==="s5"?[60,90,120]:[30,60,90,120]).map(m=>`<button type="button" data-dur="${m}" aria-pressed="${B.dur===m}">${m} ${t("min")}</button>`).join("");
+  slots();
+}
+function slots(){
+  const d=$("bDate").value,sel=$("bTime"),keep=sel.value,now=new Date(),out=[];
+  if(d){for(let m=600;m+B.dur<=1260;m+=30){const dt=new Date(d+"T"+pad(m/60|0)+":"+pad(m%60)+":00");if(dt-now>=3600e3)out.push(pad(m/60|0)+":"+pad(m%60))}}
+  sel.innerHTML=out.length?out.map(x=>`<option${x===keep?" selected":""}>${x}</option>`).join(""):`<option value="">${d?t("notime"):"—"}</option>`;
+}
+function openBk(){B.last=document.activeElement;const d=new Date();$("bDate").min=ymd(d);if(!$("bDate").value)$("bDate").value=ymd(d);
+  $("bkF").hidden=false;$("bDone").hidden=true;$("bErr").textContent="";bkTexts();$("ov").classList.add("on");document.body.style.overflow="hidden";$("svc").querySelector("button").focus()}
+function closeBk(){$("ov").classList.remove("on");document.body.style.overflow="";if(B.last)B.last.focus()}
+function bkMsg(){const dl=new Date($("bDate").value+"T12:00").toLocaleDateString(L==="th"?"th-TH":L==="de"?"de-DE":"en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"});
+  return [t("msg"),`${t("mS")}: ${t(B.svc)} ${B.dur} ${t("min")}`,`${t("mD")}: ${dl}`,`${t("mT")}: ${$("bTime").value}`,`${t("mN")}: ${$("bName").value.trim()}`,`${t("mP")}: ${$("bPhone").value.trim()}`].concat($("bNote").value.trim()?[`${t("mX")}: ${$("bNote").value.trim()}`]:[]).join("\n")}
+$("svc").addEventListener("click",e=>{const b=e.target.closest("[data-svc]");if(!b)return;B.svc=b.dataset.svc;const ok=(B.svc==="s4"||B.svc==="s7"||B.svc==="s3"||B.svc==="s5")?[60,90,120]:B.svc==="s6"?[30,60]:[30,60,90,120];if(!ok.includes(B.dur))B.dur=ok.includes(60)?60:ok[0];bkTexts()});
+$("dur").addEventListener("click",e=>{const b=e.target.closest("[data-dur]");if(!b)return;B.dur=+b.dataset.dur;bkTexts()});
+$("bDate").addEventListener("change",slots);
+$("bCancel").addEventListener("click",closeBk);
+$("ov").addEventListener("click",e=>{if(e.target.id==="ov")closeBk()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("ov").classList.contains("on"))closeBk()});
+$("bkF").addEventListener("submit",e=>{e.preventDefault();
+  if(!$("bName").value.trim()||$("bPhone").value.trim().length<5){$("bErr").textContent=t("e1");return}
+  if(!$("bDate").value||!$("bTime").value){$("bErr").textContent=t("e2");return}
+  if(new Date($("bDate").value+"T"+$("bTime").value+":00")-new Date()<3600e3){$("bErr").textContent=t("e3");slots();return}
+  const m=bkMsg();$("bSum").textContent=m;$("bWa").href="https://wa.me/4917687848893?text="+encodeURIComponent(m);
+  $("bkF").hidden=true;$("bDone").hidden=false;$("bWa").focus()});
+$("bCopy").addEventListener("click",async()=>{const m=$("bSum").textContent;try{await navigator.clipboard.writeText(m);toast(t("copied2"))}catch(err){toast(t("copy2")+" ✗")}});
+const OWNER=`Tanawadee Thai Massage &amp; Lashes<br>Inhaberin: Tanawadee Thipboonta<br>Grindelallee 139<br>20146 Hamburg<br>Deutschland`;
+const CONTACT=`0176 87848893<br>tana.wadee.jaja@gmail.com`;
+const WA="+49 176 87848893";
+const LEGAL={
+de:{
+imp:`<h2>Impressum</h2>
+<h3>Angaben gemäß § 5 DDG</h3><p>${OWNER}</p>
+<h3>Kontakt</h3><p>Telefon: 0176 87848893<br>WhatsApp: ${WA}<br>E-Mail: tana.wadee.jaja@gmail.com</p>
+<h3>Dienstleistungen</h3><p>Traditionelle Thai-Massage, Wellnessmassagen, Aromaölmassage, Kräuterstempelmassage, Hot-Stone-Massage, Fußmassage sowie Wimpernverlängerung und Wimpernpflege.</p>
+<h3>Umsatzsteuer</h3><p>Wir sind Kleinunternehmer im Sinne des § 19 UStG. Daher wird keine Umsatzsteuer erhoben und ausgewiesen.</p>
+<h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3><p>Tanawadee Thipboonta, Anschrift wie oben</p>
+<h3>Hinweis zu den Einträgen</h3><p>Die Angaben zu den aufgeführten Studios stammen aus öffentlich zugänglichen Verzeichnissen und Bewertungsportalen (u. a. hamburg.de, Treatwell, thai-massage.de). Für Richtigkeit, Vollständigkeit und Aktualität übernehmen wir keine Gewähr. Studios, die eine Korrektur oder Löschung ihres Eintrags wünschen, schreiben bitte an tana.wadee.jaja@gmail.com – wir ändern den Eintrag umgehend.</p>
+<h3>Haftung für Links</h3><p>Diese Seite enthält Links zu externen Websites Dritter (z. B. Google Maps, WhatsApp, Instagram, Websites der Studios), auf deren Inhalte wir keinen Einfluss haben. Für diese Inhalte ist stets der jeweilige Anbieter verantwortlich.</p>
+<h3>Verbraucherstreitbeilegung</h3><p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>`,
+ds:`<h2>Datenschutzerklärung</h2>
+<h3>1. Verantwortliche</h3><p>${OWNER}<br>${CONTACT}</p>
+<h3>2. Hosting und Server-Logfiles</h3><p>Diese Website wird bei einem externen Hosting-Anbieter betrieben (Netlify, Inc., 512 2nd Street, San Francisco, CA 94107, USA). Beim Aufruf der Seite verarbeitet der Anbieter technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Datei und Browser-Typ, um die Seite auszuliefern und die Sicherheit zu gewährleisten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Eine Übermittlung in die USA erfolgt auf Grundlage des EU-U.S. Data Privacy Framework bzw. der EU-Standardvertragsklauseln.</p>
+<h3>3. Keine Cookies, kein Tracking, keine externen Schriften</h3><p>Wir setzen keine Cookies, keine Analyse- oder Werbedienste und laden keine Schriftarten von fremden Servern. Ihre Sprachauswahl und Ihre Favoriten werden ausschließlich lokal in Ihrem Browser (localStorage) gespeichert und nicht an uns übertragen. Dies ist für die von Ihnen gewünschte Funktion erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG). Sie können die Daten jederzeit über die Browsereinstellungen löschen.</p>
+<h3>4. Online-Terminanfrage und Gutscheinbestellung</h3><p>Die Angaben im Buchungs- und Gutscheinformular (z. B. Behandlung, Datum, Uhrzeit, Betrag, Name des Empfängers, Grußtext, Ihr Name, Telefonnummer oder E-Mail) werden nicht auf unserem Server gespeichert. Erst wenn Sie auf „WhatsApp“ tippen, öffnet sich WhatsApp (WhatsApp Ireland Limited, Merrion Road, Dublin 4, Irland) mit der vorbereiteten Nachricht, die Sie selbst absenden. Wir verwenden die Daten ausschließlich zur Vereinbarung Ihres Termins (Art. 6 Abs. 1 lit. b DSGVO) und löschen sie, sobald sie dafür nicht mehr benötigt werden und keine gesetzlichen Aufbewahrungspflichten bestehen. Für die Verarbeitung durch WhatsApp gilt dessen Datenschutzerklärung.</p>
+<h3>5. Externe Links</h3><p>Links zu Google Maps, WhatsApp, Instagram und den Websites der Studios werden erst beim Anklicken aufgerufen. Ab dann gelten die Datenschutzbestimmungen des jeweiligen Anbieters.</p>
+<h3>6. Ihre Rechte</h3><p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO). Wenden Sie sich dazu an die oben genannte Verantwortliche. Sie können sich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, z. B. beim Hamburgischen Beauftragten für Datenschutz und Informationsfreiheit.</p>
+<p class="fine">Stand: November 2026</p>`},
+en:{
+imp:`<p class="fine">Translation for information only. The German version is legally binding.</p><h2>Legal notice (Impressum)</h2>
+<h3>Information pursuant to § 5 DDG</h3><p>${OWNER}</p>
+<h3>Contact</h3><p>Phone: 0176 87848893<br>WhatsApp: ${WA}<br>Email: tana.wadee.jaja@gmail.com</p>
+<h3>Services</h3><p>Traditional Thai massage, wellness massages, aroma oil massage, herbal compress massage, hot stone massage, foot massage, eyelash extensions and lash care.</p>
+<h3>VAT</h3><p>We are a small business under § 19 UStG (German VAT Act), so no VAT is charged or shown.</p>
+<h3>Responsible for content (§ 18 (2) MStV)</h3><p>Tanawadee Thipboonta, address as above</p>
+<h3>About the listings</h3><p>Studio details come from publicly available directories and review sites (including hamburg.de, Treatwell, thai-massage.de). We cannot guarantee that they are accurate, complete or current. Studios that want their entry corrected or removed can write to tana.wadee.jaja@gmail.com and we will change it promptly.</p>
+<h3>External links</h3><p>This site links to third-party websites (e.g. Google Maps, WhatsApp, Instagram, studio websites). Their operators are responsible for their content.</p>
+<h3>Consumer dispute resolution</h3><p>We are neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board.</p>`,
+ds:`<p class="fine">Translation for information only. The German version is legally binding.</p><h2>Privacy policy</h2>
+<h3>1. Controller</h3><p>${OWNER}<br>${CONTACT}</p>
+<h3>2. Hosting and server logs</h3><p>This website is hosted by Netlify, Inc., 512 2nd Street, San Francisco, CA 94107, USA. When you open it, the host processes technically necessary data such as your IP address, time of access, requested file and browser type to deliver the site and keep it secure (Art. 6(1)(f) GDPR). Transfers to the USA are based on the EU-U.S. Data Privacy Framework or EU Standard Contractual Clauses.</p>
+<h3>3. No cookies, no tracking, no external fonts</h3><p>We use no cookies, no analytics or advertising services, and load no fonts from third-party servers. Your language choice and favourites are stored only in your own browser (localStorage) and are never sent to us. You can delete them at any time in your browser settings.</p>
+<h3>4. Online booking requests and voucher orders</h3><p>What you enter in the booking or voucher form (e.g. treatment, date, time, amount, recipient name, message, your name, phone or email) is not stored on our server. Only when you tap “WhatsApp” does WhatsApp (WhatsApp Ireland Limited, Dublin, Ireland) open with the prepared message, which you send yourself. We use the data only to arrange your appointment (Art. 6(1)(b) GDPR) and delete it once it is no longer needed, unless the law requires us to keep it. WhatsApp's own privacy policy applies to its processing.</p>
+<h3>5. External links</h3><p>Links to Google Maps, WhatsApp, Instagram and studio websites are only loaded when you tap them; the respective provider's privacy policy then applies.</p>
+<h3>6. Your rights</h3><p>You have the right to access, rectification, erasure, restriction, data portability and objection (Art. 15–21 GDPR). Contact the controller above. You may also complain to a data protection authority, e.g. the Hamburg Commissioner for Data Protection and Freedom of Information.</p>
+<p class="fine">Last updated: November 2026</p>`},
+th:{
+imp:`<p class="fine">คำแปลเพื่อความเข้าใจเท่านั้น ฉบับภาษาเยอรมันมีผลทางกฎหมาย</p><h2>ข้อมูลผู้ให้บริการ (Impressum)</h2>
+<h3>ข้อมูลตาม § 5 DDG</h3><p>${OWNER}</p>
+<h3>ติดต่อ</h3><p>โทร 0176 87848893<br>WhatsApp ${WA}<br>อีเมล tana.wadee.jaja@gmail.com</p>
+<h3>บริการ</h3><p>นวดแผนไทย นวดเพื่อสุขภาพ นวดน้ำมันอโรมา นวดลูกประคบ นวดหินร้อน นวดเท้า ต่อขนตาและดูแลขนตา</p>
+<h3>ภาษีมูลค่าเพิ่ม</h3><p>ร้านเป็นธุรกิจขนาดเล็กตาม § 19 UStG จึงไม่เรียกเก็บและไม่แสดงภาษีมูลค่าเพิ่ม</p>
+<h3>ผู้รับผิดชอบเนื้อหา (§ 18 Abs. 2 MStV)</h3><p>Tanawadee Thipboonta ที่อยู่ตามข้างต้น</p>
+<h3>เกี่ยวกับข้อมูลร้าน</h3><p>ข้อมูลร้านนวดรวบรวมจากไดเรกทอรีและเว็บรีวิวสาธารณะ (เช่น hamburg.de, Treatwell, thai-massage.de) เราไม่รับประกันว่าข้อมูลถูกต้อง ครบถ้วน หรือเป็นปัจจุบัน ร้านที่ต้องการแก้ไขหรือลบข้อมูล ส่งอีเมลมาที่ tana.wadee.jaja@gmail.com แล้วเราจะแก้ให้ทันที</p>
+<h3>ลิงก์ภายนอก</h3><p>เว็บนี้มีลิงก์ไปยังเว็บของผู้อื่น (เช่น Google Maps, WhatsApp, Instagram, เว็บของร้าน) ซึ่งเจ้าของเว็บนั้นรับผิดชอบเนื้อหาเอง</p>
+<h3>การระงับข้อพิพาทผู้บริโภค</h3><p>เราไม่ประสงค์และไม่มีหน้าที่เข้าร่วมกระบวนการระงับข้อพิพาทต่อหน่วยงานไกล่เกลี่ยผู้บริโภค</p>`,
+ds:`<p class="fine">คำแปลเพื่อความเข้าใจเท่านั้น ฉบับภาษาเยอรมันมีผลทางกฎหมาย</p><h2>นโยบายความเป็นส่วนตัว</h2>
+<h3>1. ผู้ควบคุมข้อมูล</h3><p>${OWNER}<br>${CONTACT}</p>
+<h3>2. โฮสติ้งและบันทึกเซิร์ฟเวอร์</h3><p>เว็บนี้ฝากไว้กับ Netlify, Inc. (สหรัฐอเมริกา) เมื่อเปิดเว็บ ผู้ให้บริการจะประมวลผลข้อมูลทางเทคนิคที่จำเป็น เช่น IP เวลาเข้าใช้ ไฟล์ที่เรียก และประเภทเบราว์เซอร์ เพื่อแสดงเว็บและรักษาความปลอดภัย (มาตรา 6(1)(f) GDPR) การส่งข้อมูลไปสหรัฐฯ อาศัย EU-U.S. Data Privacy Framework หรือข้อสัญญามาตรฐานของ EU</p>
+<h3>3. ไม่มีคุกกี้ ไม่มีการติดตาม ไม่โหลดฟอนต์จากภายนอก</h3><p>เราไม่ใช้คุกกี้ ไม่ใช้บริการวิเคราะห์หรือโฆษณา และไม่โหลดฟอนต์จากเซิร์ฟเวอร์อื่น ภาษาที่เลือกและร้านโปรดเก็บไว้ในเบราว์เซอร์ของคุณเท่านั้น (localStorage) ไม่ถูกส่งมาหาเรา และลบได้ทุกเมื่อในการตั้งค่าเบราว์เซอร์</p>
+<h3>4. การขอจองออนไลน์และสั่งซื้อบัตรของขวัญ</h3><p>ข้อมูลในฟอร์มจองและฟอร์มบัตรของขวัญ (เช่น บริการ วัน เวลา มูลค่า ชื่อผู้รับ ข้อความ ชื่อ เบอร์โทรหรืออีเมล) ไม่ถูกเก็บบนเซิร์ฟเวอร์ของเรา เมื่อคุณกด "WhatsApp" แอป WhatsApp (WhatsApp Ireland Limited) จะเปิดพร้อมข้อความที่เตรียมไว้ให้คุณกดส่งเอง เราใช้ข้อมูลเพื่อนัดคิวเท่านั้น (มาตรา 6(1)(b) GDPR) และลบเมื่อไม่จำเป็นแล้ว เว้นแต่กฎหมายกำหนดให้เก็บ การประมวลผลโดย WhatsApp เป็นไปตามนโยบายของ WhatsApp</p>
+<h3>5. ลิงก์ภายนอก</h3><p>ลิงก์ไป Google Maps, WhatsApp, Instagram และเว็บของร้านจะโหลดเมื่อคุณกดเท่านั้น จากนั้นใช้นโยบายของผู้ให้บริการนั้น</p>
+<h3>6. สิทธิของคุณ</h3><p>คุณมีสิทธิขอดู แก้ไข ลบ จำกัดการใช้ ขอโอนย้าย และคัดค้านการใช้ข้อมูล (มาตรา 15–21 GDPR) ติดต่อผู้ควบคุมข้อมูลข้างต้น และร้องเรียนต่อหน่วยงานคุ้มครองข้อมูลได้ เช่น Der Hamburgische Beauftragte für Datenschutz und Informationsfreiheit</p>
+<p class="fine">ปรับปรุงล่าสุด: พฤศจิกายน 2026</p>`}
+};
+
+function legal(){const k=location.hash==="#impressum"?"imp":location.hash==="#datenschutz"?"ds":"";
+  if(!k){if($("lov").classList.contains("on")){$("lov").classList.remove("on");document.body.style.overflow=""}return}
+  $("lgBody").innerHTML=LEGAL[L][k];$("lgClose").textContent=t("close");$("lov").classList.add("on");document.body.style.overflow="hidden";$("lgClose").focus({preventScroll:true});$("lgBody").parentElement.scrollTop=0}
+const lgShut=()=>{try{history.replaceState(null,"",location.pathname+location.search)}catch(e){location.hash=""}legal()};
+$("lgClose").addEventListener("click",lgShut);
+$("lov").addEventListener("click",e=>{if(e.target.id==="lov")lgShut()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("lov").classList.contains("on"))lgShut()});
+function quick(){const x=location.hash.slice(1);const clr=()=>{try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}};
+  if(x==="buchen"){clr();openBk()}else if(x==="gutschein"){clr();openGv()}
+  else if(x==="offen"||x==="favoriten"){clr();const id=x==="offen"?"opOnly":"favOnly";if($(id).getAttribute("aria-pressed")!=="true")$(id).click();$("grid").scrollIntoView({block:"start"})}
+  else legal()}
+window.addEventListener("hashchange",quick);
+let deferred=null;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;$("fInst").hidden=false});
+$("fInst").addEventListener("click",async()=>{if(!deferred)return;deferred.prompt();try{await deferred.userChoice}catch(e){}deferred=null;$("fInst").hidden=true});
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!(window.navigator.standalone);
+function footTexts(){const addUrl="https://wa.me/4917687848893?text="+encodeURIComponent(t("addmsg"));$("fAdd").textContent="＋ "+t("add");$("fAdd").href=addUrl;$("dAdd").textContent="＋ "+t("add");$("dAdd").href=addUrl;$("fImp").textContent=t("imp");$("policy").textContent=t("policy");$("fDs").textContent=t("ds");$("fInst").textContent=t("inst");$("iosHint").textContent=t("ios");$("iosHint").hidden=!isIOS;if($("lov").classList.contains("on"))legal()}
+try{if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{})}catch(e){}
+setInterval(()=>{if(!$("ov").classList.contains("on"))render()},60000);
+/* Zahlungslinks: PayPal.me-Name (z. B. "tanawadee") und/oder Stripe Payment Link eintragen */
+const PAY={paypal:"",stripe:""};
+const G={amt:50,del:"d1",last:null};
+const PK=[{n:5,v:275},{n:10,v:500}];
+const pkOf=a=>PK.find(k=>k.v===a&&!+$("gOwn").value);
+const gValid=()=>{const d=new Date();return "31.12."+(d.getFullYear()+3)};
+const fmtD=d=>String(d.getDate()).padStart(2,"0")+"."+String(d.getMonth()+1).padStart(2,"0")+"."+d.getFullYear();
+const gAkt=()=>{const d=new Date(),e=new Date(d.getFullYear(),d.getMonth()+6,d.getDate());return fmtD(e)};
+const gAmt=()=>{const o=+$("gOwn").value;return o?o:G.amt};
+function gvPrev(){const a=gAmt(),k=pkOf(a);$("gxTo").textContent=$("gTo").value.trim();$("gxFrom").textContent=$("gFrom").value.trim();$("gxVal").textContent=k?gAkt()+"*":gValid();$("gxAmt").textContent=k?`${k.n}× · ${a} €`:(a?a+" €":"");const m=$("gMsg").value.trim();$("gpM").textContent=m?"„"+m+"“":"";$("gAk").textContent=k?"* "+t("akt")(gAkt(),gValid()):""}
+function gvTexts(){$("gvT").textContent=t("gvT");$("gvSub").textContent=t("gvSub");
+  [["glA","gA"],["glTo","gTo"],["glFrom","gFrom"],["glMsg","gMsg"],["glDel","gDel"],["glName","gName"],["glCon","gCon"],["gCancel","cancel"],["gGo","gGo"]].forEach(([i,k])=>$(i).textContent=t(k));
+  $("gOwn").placeholder=t("gOwn");
+  $("gAmt").innerHTML=[30,50,75,100,150].map(v=>`<button type="button" data-a="${v}" aria-pressed="${!+$("gOwn").value&&G.amt===v}">${v} €</button>`).join("")+PK.map(k=>`<button type="button" data-a="${k.v}" aria-pressed="${!+$("gOwn").value&&G.amt===k.v}">${k.n}${t("card")} · ${k.v} €</button>`).join("");
+  $("gDel").innerHTML=["d1","d2","d3"].map(v=>`<button type="button" data-d="${v}" aria-pressed="${G.del===v}">${t(v)}</button>`).join("");gvPrev()}
+function openGv(){G.last=document.activeElement;$("gvF").hidden=false;$("gDone").hidden=true;$("gErr").textContent="";gvTexts();$("gov").classList.add("on");document.body.style.overflow="hidden";$("gAmt").querySelector("button").focus()}
+function closeGv(){$("gov").classList.remove("on");document.body.style.overflow="";if(G.last)G.last.focus()}
+$("gAmt").addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(!b)return;G.amt=+b.dataset.a;$("gOwn").value="";gvTexts()});
+$("gDel").addEventListener("click",e=>{const b=e.target.closest("[data-d]");if(!b)return;G.del=b.dataset.d;gvTexts()});
+["gOwn","gTo","gFrom","gMsg"].forEach(i=>$(i).addEventListener("input",()=>{if(i==="gOwn")$("gAmt").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",!+$("gOwn").value&&G.amt===+b.dataset.a));gvPrev()}));
+$("gCancel").addEventListener("click",closeGv);
+$("gov").addEventListener("click",e=>{if(e.target.id==="gov")closeGv()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("gov").classList.contains("on"))closeGv()});
+$("gvF").addEventListener("submit",e=>{e.preventDefault();const a=gAmt();
+  if(!(a>=20&&a<=500)){$("gErr").textContent=t("gE1");return}
+  if(!$("gName").value.trim()||$("gCon").value.trim().length<5){$("gErr").textContent=t("gE2");return}
+  const k=pkOf(a);const L2=[t("gMsgW"),`${t("gO1")}: ${k?k.n+t("card")+" · ":""}${a} €`,...(k?[`${t("gO9")}: ${gAkt()}`,`${t("gO8")}: ${gValid()}`]:[`${t("gO8")}: ${gValid()}`])];
+  if(k)L2.push("* "+t("akt")(gAkt(),gValid()));const to=$("gTo").value.trim(),fr=$("gFrom").value.trim(),m=$("gMsg").value.trim();
+  if(to)L2.push(`${t("gO2")}: ${to}`);if(fr)L2.push(`${t("gO3")}: ${fr}`);if(m)L2.push(`${t("gO4")}: ${m}`);
+  L2.push(`${t("gO5")}: ${t(G.del)}`,`${t("gO6")}: ${$("gName").value.trim()}`,`${t("gO7")}: ${$("gCon").value.trim()}`);
+  const msg=L2.join("\n");$("gSum").textContent=msg;
+  const pay=[];if(PAY.paypal)pay.push(`<a class="btn" href="https://paypal.me/${encodeURIComponent(PAY.paypal)}/${a}EUR" target="_blank" rel="noopener">PayPal · ${a} €</a>`);
+  if(PAY.stripe)pay.push(`<a class="btn" href="${PAY.stripe}" target="_blank" rel="noopener">Karte / Apple Pay · ${a} €</a>`);
+  pay.push(`<a class="btn pri" href="https://wa.me/4917687848893?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${t("gWa")}</a>`);
+  $("gPay").innerHTML=pay.join("");$("gFine").textContent=t(PAY.paypal||PAY.stripe?"gHowPay":"gHow");
+  $("gvF").hidden=true;$("gDone").hidden=false;$("gPay").querySelector("a").focus()});
+/* Preise der Werbepakete – hier anpassen */
+const ADP={p0:0,p1:19,p2:29};
+const A={pk:"p1",last:null};
+function adTexts(){$("adH").textContent=t("adH");$("adP").textContent=t("adP");$("adBtn").textContent=t("adBtn");$("adNo2").textContent="✓ "+t("nocom");$("fAd").textContent=t("adBtn")}
+function adModal(){$("adT").textContent=t("adT");$("adNo").textContent="✓ "+t("nocom");$("adSub").textContent=t("adSub");
+  [["alS","alS"],["alN","alN"],["alP","alP"],["aCancel","cancel"],["aGo","aGo"],["aFine","aFine"]].forEach(([i,k])=>$(i).textContent=t(k));
+  $("adPk").innerHTML=["p0","p1","p2"].map(k=>`<button type="button" class="pk" data-pk="${k}" aria-pressed="${A.pk===k}"><h3>${t(k)}</h3><div class="pr">${ADP[k]?ADP[k]+" €<small>"+t("permo")+"</small>":"0 €"}</div><ul>${t(k+"d").map(x=>`<li>${x}</li>`).join("")}</ul></button>`).join("")}
+function openAd(){A.last=document.activeElement;$("aErr").textContent="";adModal();$("aov").classList.add("on");document.body.style.overflow="hidden";$("adPk").querySelector('[aria-pressed="true"]').focus()}
+function closeAd(){$("aov").classList.remove("on");document.body.style.overflow="";if(A.last)A.last.focus()}
+$("adBtn").addEventListener("click",openAd);$("fAd").addEventListener("click",openAd);
+$("adPk").addEventListener("click",e=>{const b=e.target.closest("[data-pk]");if(!b)return;A.pk=b.dataset.pk;adModal();$("adPk").querySelector(`[data-pk="${A.pk}"]`).focus()});
+$("aCancel").addEventListener("click",closeAd);$("aov").addEventListener("click",e=>{if(e.target.id==="aov")closeAd()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("aov").classList.contains("on"))closeAd()});
+$("adF").addEventListener("submit",e=>{e.preventDefault();if(!$("aS").value.trim()||$("aP").value.trim().length<5){$("aErr").textContent=t("aE");return}
+  const m=[t("adMsg"),`${t("adPkL")}: ${t(A.pk)} (${ADP[A.pk]} €${ADP[A.pk]?t("permo"):""})`,`${t("alS")}: ${$("aS").value.trim()}`];
+  if($("aN").value.trim())m.push(`${t("alN")}: ${$("aN").value.trim()}`);m.push(`${t("alP")}: ${$("aP").value.trim()}`);
+  window.open("https://wa.me/4917687848893?text="+encodeURIComponent(m.join("\n")),"_blank","noopener");closeAd();toast("WhatsApp ✓")});
+function all(){texts();footTexts();adTexts();chips();drawMap();render();if($("ov").classList.contains("on"))bkTexts();if($("gov").classList.contains("on"))gvTexts();if($("aov").classList.contains("on"))adModal()}
+function pick(k){st.bz=(k===st.bz)?"":k;chips();drawMap();render()}
+function toast(m){const e=$("toast");e.textContent=m;e.classList.add("on");clearTimeout(toast.k);toast.k=setTimeout(()=>e.classList.remove("on"),1800)}
+
+document.querySelector(".langs").addEventListener("click",e=>{const b=e.target.closest("[data-lang]");if(!b)return;L=b.dataset.lang;store("thm-lang",L);all()});
+$("chips").addEventListener("click",e=>{const b=e.target.closest("[data-bz]");if(b)pick(b.dataset.bz)});
+$("drows").addEventListener("click",e=>{const b=e.target.closest("[data-bz]");if(b)pick(b.dataset.bz)});
+$("q").addEventListener("input",e=>{st.q=e.target.value;render()});
+$("sort").addEventListener("change",e=>{st.sort=e.target.value;render()});
+$("pmOnly").addEventListener("click",e=>{st.pmo=!st.pmo;e.currentTarget.setAttribute("aria-pressed",st.pmo);render()});
+$("suOnly").addEventListener("click",e=>{st.suo=!st.suo;e.currentTarget.setAttribute("aria-pressed",st.suo);render()});
+$("ltOnly").addEventListener("click",e=>{st.lto=!st.lto;e.currentTarget.setAttribute("aria-pressed",st.lto);render()});
+$("opOnly").addEventListener("click",e=>{st.opo=!st.opo;e.currentTarget.setAttribute("aria-pressed",st.opo);render()});
+$("bkOnly").addEventListener("click",e=>{st.bko=!st.bko;e.currentTarget.setAttribute("aria-pressed",st.bko);render()});
+$("favOnly").addEventListener("click",e=>{st.fav=!st.fav;e.currentTarget.setAttribute("aria-pressed",st.fav);render()});
+$("grid").addEventListener("click",async e=>{
+  const f=e.target.closest("[data-fav]");
+  if(f){const id=+f.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);store("thm-favs",JSON.stringify([...favs]));toast(t(favs.has(id)?"favadd":"favdel"));render();return}
+  if(e.target.closest("[data-book]")){openBk();return}
+  if(e.target.closest("[data-gv]")){openGv();return}
+  const c=e.target.closest("[data-copy]");
+  if(c){const s=S[+c.dataset.copy],txt=s.n+", "+full(s);try{await navigator.clipboard.writeText(txt);toast(t("copied"))}catch(err){toast(txt)}return}
+  if(e.target.id==="reset"){st={...st,q:"",bz:"",fav:false,bko:false,pmo:false,opo:false,suo:false,lto:false};["suOnly","ltOnly"].forEach(i=>$(i).setAttribute("aria-pressed","false"));["pmOnly","opOnly"].forEach(i=>$(i).setAttribute("aria-pressed","false"));$("bkOnly").setAttribute("aria-pressed","false");$("q").value="";$("favOnly").setAttribute("aria-pressed","false");chips();drawMap();render()}
+});
+all();quick();
+}
+</script>
+</body>
+</html>

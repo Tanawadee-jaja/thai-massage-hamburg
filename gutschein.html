@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f3ee">
+<meta name="robots" content="noindex">
+<title>Gutschein · Tanawadee</title>
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Gutschein">
+<style>
+/* VOICE: elegant, calm gift – like the studio's printed voucher
+   IDEA: a printed spa ticket with a tear-off stub, held in the phone
+   PICTURE: the ticket itself – spa photo band, gold serif title, large amount, code stub
+   COLOUR and TYPE: cream #f7f3ee, warm brown #6b3a1c, gold #c9a23a; Georgia serif + system sans
+   LAYOUT: one centred ticket, max 420px; issuer tool is one calm column */
+:root{color-scheme:light;--cream:#f7f3ee;--paper:#fffdf9;--brown:#6b3a1c;--ink:#3b2416;--mut:#8a7462;--gold:#c9a23a;--line:#e8dccb;--fb:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Thai","Thonburi",sans-serif;--fs:Georgia,"Times New Roman",serif}
+*{box-sizing:border-box;min-width:0}
+[hidden]{display:none!important}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.5 var(--fb);padding:max(16px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
+.langs{display:flex;justify-content:center;gap:4px;margin:0 auto 14px}
+.langs button{min-width:44px;min-height:36px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);font:600 13px var(--fb);cursor:pointer}
+.langs button[aria-pressed=true]{background:var(--brown);border-color:var(--brown);color:#fff}
+.tk{max-width:420px;margin:0 auto;background:var(--paper);border-radius:22px;box-shadow:0 24px 50px -24px rgba(80,45,20,.45),0 0 0 1px var(--line);overflow:hidden;position:relative}
+.ph{height:150px;background:url(g-spa.jpg) center 40%/cover;position:relative}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,253,249,0) 40%,var(--paper))}
+.top{padding:0 24px 18px;text-align:center;margin-top:-56px;position:relative}
+.top img{width:108px;height:auto;border-radius:12px;background:var(--cream)}
+.kt{font:500 20px/1.2 var(--fs);letter-spacing:.2em;color:var(--gold);margin:12px 0 2px;text-transform:uppercase}
+.st{font-size:13px;color:var(--mut)}
+.amt{font:700 54px/1 var(--fs);color:var(--brown);margin:18px 0 4px}
+.pk{font-size:15px;color:var(--brown);font-weight:600}
+.who{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin:18px 0 0;text-align:left}
+.who div{border-top:1px solid var(--gold);padding-top:6px}
+.lb{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.vl{font:italic 600 18px var(--fs);color:var(--ink);overflow-wrap:anywhere}
+.msg{font:italic 16px var(--fs);color:var(--mut);margin:16px 0 0;overflow-wrap:anywhere}
+.cut{position:relative;height:28px}
+.cut::before{content:"";position:absolute;left:22px;right:22px;top:50%;border-top:2px dashed var(--line)}
+.cut i{position:absolute;top:0;width:28px;height:28px;border-radius:50%;background:var(--cream)}
+.cut i:first-child{left:-14px}.cut i:last-child{right:-14px}
+.stub{padding:6px 24px 22px;text-align:center}
+.code{font:700 26px/1.2 ui-monospace,"SF Mono",Menlo,Consolas,monospace;letter-spacing:.12em;color:var(--ink);background:var(--cream);border-radius:12px;padding:12px 8px;margin:6px 0 12px;white-space:nowrap}
+.rows{display:grid;gap:6px;text-align:left;font-size:15px}
+.rows div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.rows b{color:var(--brown);white-space:nowrap}
+.note{font-size:13px;color:var(--mut);margin:10px 0 0;text-align:left}
+.acts{display:flex;gap:8px;margin-top:16px}
+.btn{flex:1;min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;border:1.5px solid var(--brown);background:var(--paper);color:var(--brown);font:600 15px var(--fb);text-decoration:none;cursor:pointer;padding:0 12px}
+.btn.pri{background:var(--brown);color:#fff}
+.btn:focus-visible,.langs button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.addr{font-size:13px;color:var(--mut);margin-top:12px}
+.save{max-width:420px;margin:16px auto 0;text-align:center;font-size:14px;color:var(--mut)}
+.bad{max-width:420px;margin:40px auto;text-align:center;color:var(--mut)}
+/* issuer */
+.iss{max-width:560px;margin:0 auto}
+.iss h1{font:600 26px/1.2 var(--fs);color:var(--brown);margin:0 0 4px}
+.iss .sub{color:var(--mut);margin:0 0 18px;font-size:14px}
+.card{background:var(--paper);border-radius:16px;box-shadow:0 0 0 1px var(--line);padding:18px;margin-bottom:16px}
+.f{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.f span{font-size:14px;font-weight:600}
+.f input,.f select,.f textarea{font:16px var(--fb);color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px;width:100%}
+.f input:focus,.f select:focus,.f textarea:focus{outline:3px solid rgba(201,162,58,.45);border-color:var(--brown)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.out{word-break:break-all;font-size:13px;background:var(--cream);border-radius:10px;padding:10px;margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+td.n{text-align:right;white-space:nowrap}
+td code{font-size:13px;white-space:nowrap}
+.empty{color:var(--mut);font-size:14px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:15px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+@media(max-width:420px){.amt{font-size:46px}.code{font-size:22px}.two{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+
+<div id="ticketView" hidden>
+  <div class="langs" role="group" aria-label="Sprache"><button data-l="de">DE</button><button data-l="en">EN</button><button data-l="th">TH</button></div>
+  <article class="tk" aria-labelledby="kt">
+    <div class="ph" role="img" aria-label="Spa"></div>
+    <div class="top">
+      <img src="g-logo.jpg" alt="Tanawadee Thai Massage &amp; Lashes" width="195" height="170">
+      <div class="kt" id="kt"></div>
+      <div class="st">Tanawadee Thai Massage &amp; Lashes</div>
+      <div class="amt" id="vAmt"></div>
+      <div class="pk" id="vPk"></div>
+      <div class="who"><div><div class="lb" id="lTo"></div><div class="vl" id="vTo"></div></div><div><div class="lb" id="lFrom"></div><div class="vl" id="vFrom"></div></div></div>
+      <p class="msg" id="vMsg"></p>
+    </div>
+    <div class="cut" aria-hidden="true"><i></i><i></i></div>
+    <div class="stub">
+      <div class="lb" id="lCode"></div>
+      <div class="code" id="vCode"></div>
+      <div class="rows">
+        <div id="rAkt"><span id="lAkt"></span><b id="vAkt"></b></div>
+        <div><span id="lVal"></span><b id="vVal"></b></div>
+        <div><span id="lIss"></span><b id="vIss"></b></div>
+      </div>
+      <p class="note" id="vNote"></p>
+      <div class="acts">
+        <a class="btn" href="tel:+4917687848893" id="bCall"></a>
+        <a class="btn pri" id="bWa" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div class="addr">Grindelallee 139 · 20146 Hamburg · 0176 87848893</div>
+    </div>
+  </article>
+  <p class="save" id="vSave"></p>
+</div>
+
+<div id="badView" class="bad" hidden><p id="bad"></p></div>
+
+<div id="issView" class="iss" hidden>
+  <h1>ออกบัตรของขวัญ (Handy-Gutschein)</h1>
+  <p class="sub">สำหรับร้านเท่านั้น · กรอกหลังได้รับเงินแล้ว แล้วส่งลิงก์ให้ลูกค้าทาง WhatsApp</p>
+  <form class="card" id="iF" novalidate>
+    <div class="two">
+      <label class="f"><span>ประเภท</span><select id="iPk"><option value="0">มูลค่า (Wertgutschein)</option><option value="5">5er-Karte</option><option value="10">10er-Karte</option></select></label>
+      <label class="f"><span>ยอดเงิน (€)</span><input id="iAmt" type="number" min="5" max="1000" step="1" value="50" inputmode="numeric"></label>
+    </div>
+    <div class="two">
+      <label class="f"><span>ถึง (ผู้รับ)</span><input id="iTo" maxlength="40"></label>
+      <label class="f"><span>จาก</span><input id="iFrom" maxlength="40"></label>
+    </div>
+    <label class="f"><span>ข้อความ (ไม่บังคับ)</span><textarea id="iMsg" rows="2" maxlength="140"></textarea></label>
+    <div class="two">
+      <label class="f"><span>ใช้ได้ถึง</span><input id="iVal" type="date"></label>
+      <label class="f" id="iAktW"><span>ราคาโปรถึง</span><input id="iAkt" type="date"></label>
+    </div>
+    <label class="f"><span>เบอร์ WhatsApp ลูกค้า (ไม่บังคับ)</span><input id="iWa" type="tel" placeholder="+49 170 1234567"></label>
+    <button class="btn pri" type="submit">สร้างบัตร</button>
+  </form>
+  <div class="card" id="iOut" hidden>
+    <div class="lb">ลิงก์บัตร</div>
+    <div class="out" id="iLink"></div>
+    <div class="acts"><button class="btn" type="button" id="iCopy">คัดลอกลิงก์</button><a class="btn" id="iOpen" target="_blank" rel="noopener">เปิดดูบัตร</a><a class="btn pri" id="iSend" target="_blank" rel="noopener">ส่งทาง WhatsApp</a></div>
+  </div>
+  <div class="card">
+    <div class="lb" style="margin-bottom:8px">บัตรที่ออกแล้ว (เก็บในเครื่องนี้เท่านั้น)</div>
+    <div id="iList"></div>
+    <div class="acts"><button class="btn" type="button" id="iExport">คัดลอกรายการ (CSV)</button></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+{
+const $=id=>document.getElementById(id);
+const T={
+ de:{kt:"Geschenkgutschein",to:"Für",from:"Von",code:"Gutschein-Code",akt:"Aktionspreis bis",val:"Gültig bis",iss:"Ausgestellt am",call:"Anrufen",save:"Tipp: Screenshot machen oder über „Teilen → Zum Home-Bildschirm“ speichern. Bitte den Code bei der Terminbuchung nennen.",
+  note:"Einlösbar für alle Behandlungen bei Tanawadee Thai Massage & Lashes. Keine Barauszahlung.",akn:(a,b)=>`Der Aktionsvorteil (Paketpreis) gilt bis ${a}. Danach wird der gezahlte Betrag bis ${b} voll auf alle Behandlungen angerechnet.`,pk:n=>`${n}er-Karte`,
+  wa:c=>`Hallo, ich möchte einen Termin mit meinem Gutschein ${c} buchen.`,bad:"Dieser Gutschein-Link ist ungültig. Bitte wenden Sie sich an Tanawadee: 0176 87848893."},
+ en:{kt:"Gift voucher",to:"For",from:"From",code:"Voucher code",akt:"Package price until",val:"Valid until",iss:"Issued",call:"Call",save:"Tip: take a screenshot or use “Share → Add to Home Screen”. Please quote the code when booking.",
+  note:"Valid for all treatments at Tanawadee Thai Massage & Lashes. Not redeemable for cash.",akn:(a,b)=>`The package price applies until ${a}. After that, the amount paid can be used in full for any treatment until ${b}.`,pk:n=>`${n}-session pack`,
+  wa:c=>`Hello, I'd like to book an appointment with my voucher ${c}.`,bad:"This voucher link is not valid. Please contact Tanawadee: 0176 87848893."},
+ th:{kt:"บัตรของขวัญ",to:"ถึง",from:"จาก",code:"รหัสบัตร",akt:"ราคาโปรถึง",val:"ใช้ได้ถึง",iss:"ออกบัตรวันที่",call:"โทร",save:"เคล็ดลับ: แคปหน้าจอ หรือกด „แชร์ → เพิ่มไปยังหน้าจอโฮม“ เก็บไว้ แจ้งรหัสบัตรตอนจองคิว",
+  note:"ใช้ได้กับทุกบริการที่ Tanawadee Thai Massage & Lashes ไม่สามารถแลกเป็นเงินสด",akn:(a,b)=>`ราคาโปรแพ็กเกจใช้ได้ถึง ${a} หลังจากนั้นยอดเงินที่จ่ายยังใช้กับทุกบริการได้เต็มจำนวนจนถึง ${b}`,pk:n=>`แพ็กเกจ ${n} ครั้ง`,
+  wa:c=>`สวัสดีค่ะ ขอจองคิวโดยใช้บัตรของขวัญรหัส ${c} ค่ะ`,bad:"ลิงก์บัตรนี้ใช้ไม่ได้ กรุณาติดต่อ Tanawadee: 0176 87848893"}
+};
+const enc=o=>{const s=new TextEncoder().encode(JSON.stringify(o));let b="";s.forEach(x=>b+=String.fromCharCode(x));return btoa(b).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")};
+const dec=s=>{s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return JSON.parse(new TextDecoder().decode(u))};
+const fd=iso=>{if(!iso)return"";const[y,m,d]=iso.split("-");return `${d}.${m}.${y}`};
+const st=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
+function toast(m){const e=$("toast");e.textContent=m;e.classList.add("on");clearTimeout(toast.k);toast.k=setTimeout(()=>e.classList.remove("on"),1800)}
+const P=new URLSearchParams(location.search),D=P.get("d");
+
+if(D){
+  let g=null;try{g=dec(D)}catch(e){}
+  if(!g||!g.c||!g.a){$("badView").hidden=false;$("bad").textContent=T.de.bad+" / "+T.en.bad}
+  else{
+    let L=P.get("l")||st("tg-lang")||(navigator.language||"de").slice(0,2);if(!T[L])L="de";
+    const show=()=>{const t=T[L];document.documentElement.lang=L;
+      document.querySelectorAll("[data-l]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===L));
+      $("kt").textContent=t.kt;$("vAmt").textContent=g.a+" €";$("vPk").textContent=g.p?t.pk(g.p):"";
+      $("lTo").textContent=t.to;$("vTo").textContent=g.t||"—";$("lFrom").textContent=t.from;$("vFrom").textContent=g.f||"—";
+      $("vMsg").textContent=g.m?"„"+g.m+"“":"";$("lCode").textContent=t.code;$("vCode").textContent=g.c;
+      $("rAkt").hidden=!g.k;$("lAkt").textContent=t.akt;$("vAkt").textContent=fd(g.k);
+      $("lVal").textContent=t.val;$("vVal").textContent=fd(g.v);$("lIss").textContent=t.iss;$("vIss").textContent=fd(g.i);
+      $("vNote").textContent=t.note+(g.k?" "+t.akn(fd(g.k),fd(g.v)):"");$("bCall").textContent=t.call;
+      $("bWa").href="https://wa.me/4917687848893?text="+encodeURIComponent(t.wa(g.c));$("vSave").textContent=t.save;
+      document.title=t.kt+" · Tanawadee"};
+    document.querySelector(".langs").addEventListener("click",e=>{const b=e.target.closest("[data-l]");if(!b)return;L=b.dataset.l;st("tg-lang",L);show()});
+    $("ticketView").hidden=false;show();
+  }
+}else{
+  $("issView").hidden=false;
+  const today=new Date(),iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  const setDates=()=>{$("iVal").value=(today.getFullYear()+3)+"-12-31";const a=new Date(today.getFullYear(),today.getMonth()+6,today.getDate());$("iAkt").value=iso(a)};
+  setDates();
+  const pkUpd=()=>{const p=+$("iPk").value;$("iAktW").hidden=!p;if(p===5)$("iAmt").value=275;if(p===10)$("iAmt").value=500};
+  $("iPk").addEventListener("change",pkUpd);pkUpd();
+  const code=()=>{const A="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",r=new Uint32Array(6);crypto.getRandomValues(r);let s="";r.forEach(x=>s+=A[x%A.length]);return "TW-"+s.slice(0,3)+"-"+s.slice(3)};
+  let list=[];try{list=JSON.parse(st("tg-list")||"[]")}catch(e){}
+  const save=()=>st("tg-list",JSON.stringify(list));
+  const base=location.href.split("?")[0].split("#")[0];
+  const drawList=()=>{if(!list.length){$("iList").innerHTML='<p class="empty">ยังไม่มีบัตร</p>';return}
+    $("iList").innerHTML=`<table><thead><tr><th>รหัส</th><th>ถึง</th><th class="n">ยอด</th><th>ใช้แล้ว</th></tr></thead><tbody>${list.slice().reverse().map(x=>`<tr><td><code>${x.c}</code><br><small>${fd(x.i)}</small></td><td>${(x.t||"—").replace(/</g,"&lt;")}</td><td class="n">${x.a} €${x.p?`<br><small>${x.p}er</small>`:""}</td><td><input type="checkbox" data-c="${x.c}" ${x.u?"checked":""} aria-label="eingelöst ${x.c}"></td></tr>`).join("")}</tbody></table>`};
+  drawList();
+  $("iList").addEventListener("change",e=>{const c=e.target.dataset.c;const x=list.find(y=>y.c===c);if(x){x.u=e.target.checked;save()}});
+  $("iF").addEventListener("submit",e=>{e.preventDefault();const a=+$("iAmt").value;if(!(a>0)){toast("กรุณาใส่ยอดเงิน");return}
+    const p=+$("iPk").value,g={c:code(),a,p,t:$("iTo").value.trim(),f:$("iFrom").value.trim(),m:$("iMsg").value.trim(),v:$("iVal").value,k:p?$("iAkt").value:"",i:iso(today)};
+    if(!g.k)delete g.k;if(!g.m)delete g.m;
+    const url=base+"?d="+enc(g);list.push({...g,u:false});save();drawList();
+    $("iOut").hidden=false;$("iLink").textContent=url;$("iOpen").href=url;
+    const msg=`Ihr Geschenkgutschein von Tanawadee Thai Massage & Lashes 🎁\n${url}\nCode: ${g.c}`;
+    const wa=$("iWa").value.replace(/[^\d]/g,"");$("iSend").href="https://wa.me/"+(wa?wa.replace(/^0/,"49"):"")+"?text="+encodeURIComponent(msg);
+    $("iOut").scrollIntoView({behavior:"smooth",block:"nearest"})});
+  $("iCopy").addEventListener("click",async()=>{try{await navigator.clipboard.writeText($("iLink").textContent);toast("คัดลอกแล้ว")}catch(e){toast("คัดลอกไม่ได้")}});
+  $("iExport").addEventListener("click",async()=>{const csv="Code;Datum;Für;Von;Betrag;Paket;Gültig bis;Aktion bis;Eingelöst\n"+list.map(x=>[x.c,fd(x.i),x.t,x.f,x.a,x.p||"",fd(x.v),fd(x.k),x.u?"ja":"nein"].map(v=>String(v??"").replace(/;/g,",")).join(";")).join("\n");
+    try{await navigator.clipboard.writeText(csv);toast("คัดลอก CSV แล้ว")}catch(e){toast("คัดลอกไม่ได้")}});
+}
+}
+</script>
+</body>
+</html>

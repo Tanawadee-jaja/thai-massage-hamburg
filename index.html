@@ -359,6 +359,7 @@ const THR=[
 ];
 const SUB={mitte:"St. Georg · Altstadt · St. Pauli · HafenCity",altona:"Altona · Ottensen · Bahrenfeld · Lurup",eims:"Eimsbüttel · Rotherbaum · Harvestehude",nord:"Eppendorf · Winterhude · Barmbek · Uhlenhorst",wands:"Wandsbek · Bramfeld · Rahlstedt",harburg:"Harburg · Heimfeld · Neugraben",berg:"Bergedorf · Lohbrügge"};
 const smooth=pts=>{const n=pts.length,k=.22,lp=(a,b,t)=>[(a[0]+(b[0]-a[0])*t).toFixed(1),(a[1]+(b[1]-a[1])*t).toFixed(1)];let d="";for(let i=0;i<n;i++){const P=pts[(i-1+n)%n],C=pts[i],N=pts[(i+1)%n],a=lp(C,P,k),b=lp(C,N,k);d+=(i?" L":"M")+a[0]+","+a[1]+` Q${C[0]},${C[1]} ${b[0]},${b[1]}`}return d+"Z"};
+function slug(x){return x.toLowerCase().replace(/ß/g,"ss").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,40)}
 const S=[
  {late:"21:00",sun:1,r:4.9,rc:38,bk:1,img:"tanawadee.jpg",n:"Tanawadee Thai Massage & Lashes",bz:"eims",st:"Rotherbaum",a:"Grindelallee 139, 20146",t:"0176 87848893",h:"daily|10:00–21:00",book:1,web:"https://www.tanawadee.de",wa:"4917687848893",ig:"tanawadee.thaimassage.lashes",mail:"tana.wadee.jaja@gmail.com",feat:1,note:"tana"},
  {web:"https://baankorat.de/",bu:"https://baankorat.de/",pm:1,n:"Baan Korat Thaimassage",bz:"mitte",st:"St. Georg",a:"Danziger Straße 44, 20099",t:"040 84600814"},
@@ -458,7 +459,7 @@ const S=[
  {bu:"https://www.treatwell.de/ort/baiyok-thai-wellnessmassage/",r:4.8,rc:678,n:"Baiyok Thai- & Wellnessmassage",bz:"berg",st:"Bergedorf",a:""},
  {bu:"https://www.treatwell.de/ort/jinda-massagen/",r:4.9,rc:4074,n:"Jinda Massagen",bz:"berg",st:"Bergedorf",a:""},
  {n:"Coco Thaimassagen",bz:"berg",st:"Bergedorf",a:"Fünfhausener Straße 81a"}
-].map((s,i)=>({...s,id:i,plz:(s.a.match(/\b(\d{5})\b/)||[,"99999"])[1]}));
+].map((s,i)=>{const plz=(s.a.match(/\b(\d{5})\b/)||[,"99999"])[1];return {...s,id:i,plz,key:slug(s.n)+"-"+plz}});
 
 const $=id=>document.getElementById(id);
 const store=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
@@ -503,7 +504,7 @@ function renderTher(){
   $("meta").textContent=`${R.length} · ${t("thPaid")}`;
   $("grid").innerHTML=R.length?R.map(x=>{const s=shopOf(x);const ini=x.n.split(/\s+/).map(w=>w[0]).slice(0,2).join("");
     const book=s?(s.bk?`<button class="btn pri" data-book="${s.id}">${t("bookAt")}</button>`:s.bu?`<a class="btn pri" href="${s.bu}" target="_blank" rel="noopener">${t("bookAt")}</a>`:s.t?`<a class="btn pri" href="tel:${s.t.replace(/\s/g,"")}">${t("bookAt")}</a>`:""):"";
-    return `<article class="c"><div class="tp">${x.img?`<img class="av" src="${x.img}" alt="${esc(x.n)}">`:`<div class="av" aria-hidden="true">${esc(ini)}</div>`}<div><h3>${x.nick?esc(x.nick)+" <small class=\"fn\">"+esc(x.n)+"</small>":esc(x.n)}</h3><div class="role">${esc(x.role?(x.role[L]||x.role.de):"")}</div></div></div>
+    return `<article class="c" data-tk="${x.id}"><div class="tp">${x.img?`<img class="av" src="${x.img}" alt="${esc(x.n)}">`:`<div class="av" aria-hidden="true">${esc(ini)}</div>`}<div><h3>${x.nick?esc(x.nick)+" <small class=\"fn\">"+esc(x.n)+"</small>":esc(x.n)}</h3><div class="role">${esc(x.role?(x.role[L]||x.role.de):"")}</div></div></div>
     <p class="at">${t("at")}: <b>${esc(x.shop)}</b>${s?` · ${esc(s.st)}`:""}</p>
     ${x.top?`<p class="star">⭐ ${t("best")}: ${SK[x.top][L]}</p>`:""}
     <div class="sk">${x.sk.filter(k=>k!==x.top).map(k=>`<span>${SK[k][L]}</span>`).join("")}</div>
@@ -519,7 +520,7 @@ function render(){
   let R=S.filter(s=>(!st.bz||s.bz===st.bz)&&(!st.fav||favs.has(s.id))&&(!st.bko||s.bk||s.bu)&&(!st.pmo||s.pm)&&(!st.opo||openNow(s))&&(!st.suo||s.sun)&&(!st.lto||s.late)&&(!q||(s.n+" "+s.a+" "+s.st+" "+BZ[s.bz]).toLowerCase().includes(q)));
   R.sort((a,b)=>(b.feat||0)-(a.feat||0)||(st.bz?(b.sp||0)-(a.sp||0):0)||(st.sort==="rt"?((b.r||0)-(a.r||0)||(b.rc||0)-(a.rc||0)):st.sort==="az"?a.n.localeCompare(b.n):st.sort==="plz"?a.plz.localeCompare(b.plz):ord.indexOf(a.bz)-ord.indexOf(b.bz)||a.st.localeCompare(b.st)));
   $("meta").textContent=t("show")(R.length,S.length)+(st.bz?` · ${t("inbz")} ${BZ[st.bz]}`:"")+(st.fav?` · ${t("favonly")}`:"")+(st.bko?` · ${t("bkonly")}`:"")+(st.pmo?` · ${t("pmonly")}`:"")+(st.opo?` · ${t("oponly")}`:"")+(st.suo?` · ${t("suonly")}`:"")+(st.lto?` · ${t("ltonly")}`:"");
-  $("grid").innerHTML=R.length?R.map(s=>`<article class="c${s.feat||s.sp===2?" feat":""}">
+  $("grid").innerHTML=R.length?R.map(s=>`<article class="c${s.feat||s.sp===2?" feat":""}" data-k="${s.key}">
     ${s.img?`<div class="cimg"><img src="${s.img}" alt="${esc(s.n)}" loading="lazy" width="900" height="597"></div>`:""}${s.imgs?`<div class="cimg gal">${s.imgs.map(u=>`<img src="${u}" alt="${esc(s.n)}" loading="lazy">`).join("")}</div>`:""}
     ${s.feat?`<span class="tag">${t("feat")}</span>`:""}
     <button class="fav" data-fav="${s.id}" aria-pressed="${favs.has(s.id)}" aria-label="${t("favlbl")}">${heart}</button>
@@ -596,7 +597,8 @@ imp:`<h2>Impressum</h2>
 ds:`<h2>Datenschutzerklärung</h2>
 <h3>1. Verantwortliche</h3><p>${OWNER}<br>${CONTACT}</p>
 <h3>2. Hosting und Server-Logfiles</h3><p>Diese Website wird bei einem externen Hosting-Anbieter betrieben (Netlify, Inc., 512 2nd Street, San Francisco, CA 94107, USA). Beim Aufruf der Seite verarbeitet der Anbieter technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Datei und Browser-Typ, um die Seite auszuliefern und die Sicherheit zu gewährleisten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Eine Übermittlung in die USA erfolgt auf Grundlage des EU-U.S. Data Privacy Framework bzw. der EU-Standardvertragsklauseln.</p>
-<h3>3. Keine Cookies, kein Tracking, keine externen Schriften</h3><p>Wir setzen keine Cookies, keine Analyse- oder Werbedienste und laden keine Schriftarten von fremden Servern. Ihre Sprachauswahl und Ihre Favoriten werden ausschließlich lokal in Ihrem Browser (localStorage) gespeichert und nicht an uns übertragen. Dies ist für die von Ihnen gewünschte Funktion erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG). Sie können die Daten jederzeit über die Browsereinstellungen löschen.</p>
+<h3>3. Keine Cookies, kein Tracking, keine externen Schriften</h3><p>Wir setzen keine Cookies, keine Analyse- oder Werbedienste Dritter und laden keine Schriftarten von fremden Servern. Ihre Sprachauswahl und Ihre Favoriten werden ausschließlich lokal in Ihrem Browser (localStorage) gespeichert und nicht an uns übertragen. Dies ist für die von Ihnen gewünschte Funktion erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG). Sie können die Daten jederzeit über die Browsereinstellungen löschen.</p>
+<h3>Anonyme Nutzungszählung</h3><p>Um zu sehen, wie oft die Seite aufgerufen wird und wie oft Buttons in den Einträgen (z. B. „Anrufen“, „Karte“, „Online buchen“) angetippt werden, zählen wir diese Aufrufe auf unserem eigenen Hosting (Netlify Functions/Blobs). Gespeichert wird je Tag nur der Name des Ereignisses mit einer Zahl (z. B. „Studio X – Anruf: 5“). Es werden keine IP-Adressen, keine Geräte- oder Browserkennungen und keine Cookies gespeichert, und es wird nichts auf Ihrem Gerät gespeichert oder ausgelesen; ein Rückschluss auf Ihre Person ist nicht möglich. Rechtsgrundlage ist unser berechtigtes Interesse an der Verbesserung des Verzeichnisses und an Statistiken für Studios (Art. 6 Abs. 1 lit. f DSGVO). Die technisch bedingte Verarbeitung Ihrer IP-Adresse beim Aufruf erfolgt wie unter Nr. 2 beschrieben.</p>
 <h3>4. Online-Terminanfrage und Gutscheinbestellung</h3><p>Die Angaben im Buchungs- und Gutscheinformular (z. B. Behandlung, Datum, Uhrzeit, Betrag, Name des Empfängers, Grußtext, Ihr Name, Telefonnummer oder E-Mail) werden nicht auf unserem Server gespeichert. Erst wenn Sie auf „WhatsApp“ tippen, öffnet sich WhatsApp (WhatsApp Ireland Limited, Merrion Road, Dublin 4, Irland) mit der vorbereiteten Nachricht, die Sie selbst absenden. Wir verwenden die Daten ausschließlich zur Vereinbarung Ihres Termins (Art. 6 Abs. 1 lit. b DSGVO) und löschen sie, sobald sie dafür nicht mehr benötigt werden und keine gesetzlichen Aufbewahrungspflichten bestehen. Für die Verarbeitung durch WhatsApp gilt dessen Datenschutzerklärung.</p>
 <h3>Profile von Masseur/innen</h3><p>Name, Foto, Studio, Spezialgebiete, Sprachen und Vorstellungstext von Masseur/innen veröffentlichen wir nur mit deren ausdrücklicher Einwilligung (Art. 6 Abs. 1 lit. a und b DSGVO). Die Einwilligung kann jederzeit widerrufen werden; das Profil wird dann umgehend gelöscht.</p>
 <h3>5. Externe Links</h3><p>Links zu Google Maps, WhatsApp, Instagram und den Websites der Studios werden erst beim Anklicken aufgerufen. Ab dann gelten die Datenschutzbestimmungen des jeweiligen Anbieters.</p>
@@ -615,7 +617,8 @@ imp:`<p class="fine">Translation for information only. The German version is leg
 ds:`<p class="fine">Translation for information only. The German version is legally binding.</p><h2>Privacy policy</h2>
 <h3>1. Controller</h3><p>${OWNER}<br>${CONTACT}</p>
 <h3>2. Hosting and server logs</h3><p>This website is hosted by Netlify, Inc., 512 2nd Street, San Francisco, CA 94107, USA. When you open it, the host processes technically necessary data such as your IP address, time of access, requested file and browser type to deliver the site and keep it secure (Art. 6(1)(f) GDPR). Transfers to the USA are based on the EU-U.S. Data Privacy Framework or EU Standard Contractual Clauses.</p>
-<h3>3. No cookies, no tracking, no external fonts</h3><p>We use no cookies, no analytics or advertising services, and load no fonts from third-party servers. Your language choice and favourites are stored only in your own browser (localStorage) and are never sent to us. You can delete them at any time in your browser settings.</p>
+<h3>3. No cookies, no tracking, no external fonts</h3><p>We use no cookies, no third-party analytics or advertising services, and load no fonts from third-party servers. Your language choice and favourites are stored only in your own browser (localStorage) and are never sent to us. You can delete them at any time in your browser settings.</p>
+<h3>Anonymous usage counting</h3><p>To see how often the site is opened and how often buttons in the listings (e.g. "Call", "Map", "Book online") are tapped, we count these events on our own hosting (Netlify Functions/Blobs). Per day we store only the event name and a number (e.g. "Studio X – call: 5"). No IP addresses, device or browser identifiers or cookies are stored, and nothing is stored on or read from your device; the counts cannot be linked to you. Legal basis: our legitimate interest in improving the directory and providing statistics to studios (Art. 6(1)(f) GDPR).</p>
 <h3>4. Online booking requests and voucher orders</h3><p>What you enter in the booking or voucher form (e.g. treatment, date, time, amount, recipient name, message, your name, phone or email) is not stored on our server. Only when you tap “WhatsApp” does WhatsApp (WhatsApp Ireland Limited, Dublin, Ireland) open with the prepared message, which you send yourself. We use the data only to arrange your appointment (Art. 6(1)(b) GDPR) and delete it once it is no longer needed, unless the law requires us to keep it. WhatsApp's own privacy policy applies to its processing.</p>
 <h3>Therapist profiles</h3><p>We publish a therapist's name, photo, studio, specialities, languages and intro only with their explicit consent (Art. 6(1)(a) and (b) GDPR). Consent can be withdrawn at any time and the profile is then deleted promptly.</p>
 <h3>5. External links</h3><p>Links to Google Maps, WhatsApp, Instagram and studio websites are only loaded when you tap them; the respective provider's privacy policy then applies.</p>
@@ -634,7 +637,8 @@ imp:`<p class="fine">คำแปลเพื่อความเข้าใ�
 ds:`<p class="fine">คำแปลเพื่อความเข้าใจเท่านั้น ฉบับภาษาเยอรมันมีผลทางกฎหมาย</p><h2>นโยบายความเป็นส่วนตัว</h2>
 <h3>1. ผู้ควบคุมข้อมูล</h3><p>${OWNER}<br>${CONTACT}</p>
 <h3>2. โฮสติ้งและบันทึกเซิร์ฟเวอร์</h3><p>เว็บนี้ฝากไว้กับ Netlify, Inc. (สหรัฐอเมริกา) เมื่อเปิดเว็บ ผู้ให้บริการจะประมวลผลข้อมูลทางเทคนิคที่จำเป็น เช่น IP เวลาเข้าใช้ ไฟล์ที่เรียก และประเภทเบราว์เซอร์ เพื่อแสดงเว็บและรักษาความปลอดภัย (มาตรา 6(1)(f) GDPR) การส่งข้อมูลไปสหรัฐฯ อาศัย EU-U.S. Data Privacy Framework หรือข้อสัญญามาตรฐานของ EU</p>
-<h3>3. ไม่มีคุกกี้ ไม่มีการติดตาม ไม่โหลดฟอนต์จากภายนอก</h3><p>เราไม่ใช้คุกกี้ ไม่ใช้บริการวิเคราะห์หรือโฆษณา และไม่โหลดฟอนต์จากเซิร์ฟเวอร์อื่น ภาษาที่เลือกและร้านโปรดเก็บไว้ในเบราว์เซอร์ของคุณเท่านั้น (localStorage) ไม่ถูกส่งมาหาเรา และลบได้ทุกเมื่อในการตั้งค่าเบราว์เซอร์</p>
+<h3>3. ไม่มีคุกกี้ ไม่มีการติดตาม ไม่โหลดฟอนต์จากภายนอก</h3><p>เราไม่ใช้คุกกี้ ไม่ใช้บริการวิเคราะห์หรือโฆษณาของบริษัทภายนอก และไม่โหลดฟอนต์จากเซิร์ฟเวอร์อื่น ภาษาที่เลือกและร้านโปรดเก็บไว้ในเบราว์เซอร์ของคุณเท่านั้น (localStorage) ไม่ถูกส่งมาหาเรา และลบได้ทุกเมื่อในการตั้งค่าเบราว์เซอร์</p>
+<h3>การนับสถิติแบบไม่ระบุตัวตน</h3><p>เพื่อดูว่ามีคนเปิดเว็บกี่ครั้ง และกดปุ่มของแต่ละร้าน (เช่น โทร แผนที่ จองออนไลน์) กี่ครั้ง เรานับจำนวนไว้บนโฮสติ้งของเราเอง (Netlify Functions/Blobs) โดยเก็บเฉพาะชื่อเหตุการณ์กับตัวเลขต่อวัน (เช่น "ร้าน X – โทร: 5") ไม่เก็บ IP ไม่เก็บรหัสอุปกรณ์หรือเบราว์เซอร์ ไม่ใช้คุกกี้ และไม่บันทึกหรืออ่านข้อมูลใดในอุปกรณ์ของคุณ จึงไม่สามารถระบุตัวคุณได้ ฐานทางกฎหมาย: ประโยชน์โดยชอบธรรมในการพัฒนาเว็บและทำสถิติให้ร้าน (มาตรา 6(1)(f) GDPR)</p>
 <h3>4. การขอจองออนไลน์และสั่งซื้อบัตรของขวัญ</h3><p>ข้อมูลในฟอร์มจองและฟอร์มบัตรของขวัญ (เช่น บริการ วัน เวลา มูลค่า ชื่อผู้รับ ข้อความ ชื่อ เบอร์โทรหรืออีเมล) ไม่ถูกเก็บบนเซิร์ฟเวอร์ของเรา เมื่อคุณกด "WhatsApp" แอป WhatsApp (WhatsApp Ireland Limited) จะเปิดพร้อมข้อความที่เตรียมไว้ให้คุณกดส่งเอง เราใช้ข้อมูลเพื่อนัดคิวเท่านั้น (มาตรา 6(1)(b) GDPR) และลบเมื่อไม่จำเป็นแล้ว เว้นแต่กฎหมายกำหนดให้เก็บ การประมวลผลโดย WhatsApp เป็นไปตามนโยบายของ WhatsApp</p>
 <h3>โปรไฟล์หมอนวด</h3><p>เราแสดงชื่อ รูป ร้านที่ทำงาน ความถนัด ภาษา และคำแนะนำตัวของหมอนวด เฉพาะเมื่อเจ้าตัวยินยอมอย่างชัดแจ้งเท่านั้น (มาตรา 6(1)(a) และ (b) GDPR) ถอนความยินยอมได้ทุกเมื่อ แล้วเราจะลบโปรไฟล์ทันที</p>
 <h3>5. ลิงก์ภายนอก</h3><p>ลิงก์ไป Google Maps, WhatsApp, Instagram และเว็บของร้านจะโหลดเมื่อคุณกดเท่านั้น จากนั้นใช้นโยบายของผู้ให้บริการนั้น</p>
@@ -764,6 +768,22 @@ $("grid").addEventListener("click",async e=>{
   if(e.target.id==="reset"){st={...st,q:"",bz:"",fav:false,bko:false,pmo:false,opo:false,suo:false,lto:false};["suOnly","ltOnly"].forEach(i=>$(i).setAttribute("aria-pressed","false"));["pmOnly","opOnly"].forEach(i=>$(i).setAttribute("aria-pressed","false"));$("bkOnly").setAttribute("aria-pressed","false");$("q").value="";$("favOnly").setAttribute("aria-pressed","false");chips();drawMap();render()}
 });
 all();quick();
+
+/* Anonyme Zählung (ohne Cookies, ohne IP): nur Ereignisname + Tag */
+const NOC=(()=>{try{if(/[?&]nocount/.test(location.search))localStorage.setItem("thm-nocount","1");if(/[?&]count=1/.test(location.search))localStorage.removeItem("thm-nocount");return localStorage.getItem("thm-nocount")==="1"}catch(e){return false}})();
+function hit(...ev){if(NOC||location.protocol!=="https:")return;const q=ev.filter(Boolean).map(x=>"e="+encodeURIComponent(x)).join("&");if(!q)return;try{if(!(navigator.sendBeacon&&navigator.sendBeacon("/api/hit?"+q)))fetch("/api/hit?"+q,{method:"POST",keepalive:true}).catch(()=>{})}catch(e){}}
+const lnk=(el)=>{const h=el.getAttribute("href")||"";if(el.classList.contains("pri"))return "buchen";if(/^\s*🎁/.test(el.textContent))return "gutschein";if(h.startsWith("tel:"))return "anruf";if(h.includes("wa.me"))return "whatsapp";if(h.includes("instagram.com"))return "instagram";if(h.includes("google.com/maps"))return "karte";if(h.startsWith("mailto:"))return "melden";if(h.startsWith("http"))return "web";return ""};
+document.addEventListener("click",e=>{const el=e.target.closest("a,button");if(!el)return;
+  const sa=el.closest("[data-k]"),ta=el.closest("[data-tk]");
+  if(sa||ta){const d=el.dataset,ty=d.book!=null?"buchen":d.gv!=null?"gutschein":d.copy!=null?"kopieren":d.fav!=null?"favorit":d.shop!=null?"studio":d.th!=null?"masseur":lnk(el);if(ty)hit((sa?"s/"+sa.dataset.k:"t/"+ta.dataset.tk)+"/"+ty);return}
+  if(el.dataset.bz)hit("bz/"+el.dataset.bz);
+  else if(el.id==="adBtn"||el.id==="fAd")hit("ad/open");
+  else if(el.id==="fAdd"||el.id==="dAdd")hit("ad/neues-studio");
+  else if(el.id==="thReg"||el.dataset.reg!=null)hit("reg/open");
+  else if(["aGo","rGo","bWa","gGo"].includes(el.id))hit("send/"+el.id.toLowerCase());
+  else if(/^(op|su|lt|pm|bk)Only$/.test(el.id))hit("f/"+el.id.slice(0,2));
+},true);
+hit("v/"+((location.hash.slice(1)||"home").toLowerCase()),"lang/"+L);
 }
 </script>
 </body>

@@ -1,0 +1,4 @@
+/netlify/*      /404  404!
+/package.json   /404  404!
+/netlify.toml   /404  404!
+/node_modules/*  /404  404!

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>สถิติ · Thai Massage Hamburg</title>
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--p:#5b1a4a;--p2:#8a3a74;--l:#f4e9f1;--b:#e6d3e0;--g:#b7892b;--t:#2a1424;--m:#6e5868}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--t);background:#faf6f9}
+header{background:var(--p);color:#fff;padding:16px}
+header h1{margin:0;font-size:19px}
+header p{margin:2px 0 0;opacity:.8;font-size:13px}
+main{max-width:860px;margin:0 auto;padding:14px}
+.card{background:#fff;border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:12px}
+h2{font-size:16px;margin:0 0 10px;color:var(--p)}
+input,select,button{font:inherit}
+input,select{padding:9px 10px;border:1px solid var(--b);border-radius:10px;background:#fff}
+button{padding:9px 14px;border-radius:10px;border:1px solid var(--p);background:var(--p);color:#fff;cursor:pointer}
+button.s{background:#fff;color:var(--p)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.kpi{background:var(--l);border-radius:12px;padding:10px}
+.kpi b{display:block;font-size:24px;color:var(--p)}
+.kpi span{font-size:12.5px;color:var(--m)}
+.bars{display:flex;align-items:flex-end;gap:2px;height:110px;margin-top:6px}
+.bars div{flex:1;background:var(--p2);border-radius:3px 3px 0 0;min-height:2px;position:relative}
+.bars div:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--t);color:#fff;font-size:11px;padding:2px 6px;border-radius:6px;white-space:nowrap}
+.axis{display:flex;justify-content:space-between;font-size:11px;color:var(--m)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:7px 5px;border-bottom:1px solid var(--b);text-align:right;vertical-align:top}
+th:first-child,td:first-child{text-align:left;min-width:150px}
+th{font-size:12px;color:var(--m);font-weight:600}
+td small{color:var(--m)}
+.tw{overflow-x:auto}
+.cp{padding:4px 9px;font-size:12px}
+.err{color:#b00020}
+.mut{color:var(--m);font-size:13px}
+.hl{display:grid;grid-template-columns:1fr auto;gap:4px 10px}
+#login[hidden],#app[hidden]{display:none}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--t);color:#fff;padding:8px 14px;border-radius:10px;opacity:0;transition:.2s}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header><h1>📊 สถิติ Thai Massage Hamburg</h1><p>นับแบบไม่ระบุตัวตน · ไม่มีคุกกี้ · หน้านี้ไม่แสดงใน Google</p></header>
+<main>
+<section class="card" id="login">
+  <h2>เข้าสู่ระบบ</h2>
+  <div class="row"><input id="pw" type="password" placeholder="รหัสผ่านสถิติ" autocomplete="current-password" style="flex:1;min-width:200px"><button id="go">เปิดดู</button></div>
+  <p class="mut">รหัสจะจำไว้ในเครื่องนี้ ไม่ต้องพิมพ์ใหม่</p>
+  <p class="err" id="lerr"></p>
+</section>
+
+<div id="app" hidden>
+<section class="card">
+  <div class="row">
+    <select id="rng">
+      <option value="m0">เดือนนี้</option>
+      <option value="m1">เดือนที่แล้ว</option>
+      <option value="d7">7 วันล่าสุด</option>
+      <option value="d30">30 วันล่าสุด</option>
+      <option value="all">ทั้งหมด</option>
+    </select>
+    <button class="s" id="re">↻ โหลดใหม่</button>
+    <button class="s" id="out">ออกจากระบบ</button>
+  </div>
+  <p class="mut" id="per"></p>
+</section>
+
+<section class="card">
+  <h2>ภาพรวม</h2>
+  <div class="kpis" id="kpis"></div>
+  <div class="bars" id="bars"></div>
+  <div class="axis" id="axis"></div>
+</section>
+
+<section class="card">
+  <h2>ร้าน: คลิกปุ่มแต่ละร้าน</h2>
+  <p class="mut">ใช้ยื่นให้ร้านตอนขาย Top / Extras · กด "คัดลอก" ได้ข้อความภาษาเยอรมันพร้อมส่ง WhatsApp</p>
+  <div class="tw"><table id="shops"></table></div>
+</section>
+
+<section class="card">
+  <h2>เขตที่ลูกค้าเลือกดู</h2>
+  <div class="hl" id="bz"></div>
+</section>
+
+<section class="card">
+  <h2>หมอนวด · ภาษา · ตัวกรอง · โฆษณา</h2>
+  <div class="hl" id="misc"></div>
+</section>
+</div>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);
+const BZ={mitte:"Hamburg-Mitte",altona:"Altona",eims:"Eimsbüttel",nord:"Hamburg-Nord",wands:"Wandsbek",harburg:"Harburg",berg:"Bergedorf"};
+const TY={buchen:"จอง",anruf:"โทร",karte:"แผนที่",web:"เว็บ",whatsapp:"WhatsApp",instagram:"IG",gutschein:"Gutschein",kopieren:"คัดลอกที่อยู่",favorit:"♥",melden:"แจ้ง",studio:"ดูร้าน",masseur:"ดูหมอนวด"};
+const TYDE={buchen:"Online buchen",anruf:"Anrufen",karte:"Karte/Route",web:"Website",whatsapp:"WhatsApp",instagram:"Instagram",gutschein:"Gutschein"};
+const MISC={"lang/th":"ภาษาไทย","lang/de":"ภาษาเยอรมัน","lang/en":"ภาษาอังกฤษ","f/op":"ตัวกรอง: เปิดอยู่ตอนนี้","f/su":"ตัวกรอง: เปิดวันอาทิตย์","f/lt":"ตัวกรอง: เปิดถึง 21:00","f/pm":"ตัวกรอง: นวดคู่","f/bk":"ตัวกรอง: จองออนไลน์ได้","ad/open":"เปิดหน้า \"ลงโฆษณา\"","send/ago":"ส่งคำขอลงโฆษณา","ad/neues-studio":"กด \"แจ้งร้านเปิดใหม่\"","reg/open":"เปิดหน้าลงทะเบียนหมอนวด","send/rgo":"ส่งคำขอโปรไฟล์หมอนวด","send/bwa":"Tanawadee: ส่งคำขอจองทาง WhatsApp","send/ggo":"Tanawadee: กดสั่งซื้อ Gutschein"};
+let NAMES={},DATA={};
+const store=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
+const read=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const toast=m=>{const t=$("toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),1800)};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ymd=d=>d.toLocaleDateString("sv-SE",{timeZone:"Europe/Berlin"});
+function slug(x){return x.toLowerCase().replace(/ß/g,"ss").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,40)}
+
+async function loadNames(){
+  try{const h=await (await fetch("index.html",{cache:"no-store"})).text();
+    const blk=h.slice(h.indexOf("const S=["),h.indexOf("].map((s,i)=>"));
+    blk.split("\n").forEach(l=>{const n=l.match(/\bn:"([^"]+)"/),a=l.match(/\ba:"([^"]*)"/),st=l.match(/\bst:"([^"]*)"/);if(!n)return;const plz=((a&&a[1].match(/\b(\d{5})\b/))||[,"99999"])[1];NAMES[slug(n[1])+"-"+plz]={n:n[1],st:st?st[1]:""}});
+  }catch(e){}
+}
+function range(){
+  const v=$("rng").value,now=new Date(),y=+ymd(now).slice(0,4),m=+ymd(now).slice(5,7);
+  const pad=n=>String(n).padStart(2,"0");
+  if(v==="m0")return [`${y}-${pad(m)}-01`,ymd(now)];
+  if(v==="m1"){const py=m===1?y-1:y,pm=m===1?12:m-1,last=new Date(Date.UTC(py,pm,0)).getUTCDate();return [`${py}-${pad(pm)}-01`,`${py}-${pad(pm)}-${pad(last)}`]}
+  if(v==="d7"||v==="d30"){const d=new Date(now.getTime()-(v==="d7"?6:29)*864e5);return [ymd(d),ymd(now)]}
+  return ["0000-00-00","9999-99-99"];
+}
+async function load(){
+  const pw=read("thm-stats-pw");if(!pw){$("login").hidden=false;$("app").hidden=true;return}
+  const [f,t]=range();
+  let r;try{r=await fetch(`/api/stats?from=${f}&to=${t}`,{headers:{"x-stats-key":pw},cache:"no-store"})}catch(e){$("lerr").textContent="เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง";return}
+  if(r.status===401){store("thm-stats-pw",null);$("login").hidden=false;$("app").hidden=true;$("lerr").textContent="รหัสผ่านไม่ถูกต้อง";return}
+  if(!r.ok){$("login").hidden=false;$("lerr").textContent="ระบบสถิติยังไม่พร้อม (ตรวจว่าอัปโหลดโฟลเดอร์ netlify ครบแล้ว) · "+r.status;return}
+  DATA=(await r.json()).days||{};
+  $("login").hidden=true;$("app").hidden=false;$("lerr").textContent="";
+  draw(f,t);
+}
+function draw(f,t){
+  const days=Object.keys(DATA).sort(),tot={};
+  days.forEach(d=>Object.entries(DATA[d]).forEach(([k,v])=>tot[k]=(tot[k]||0)+v));
+  const sum=p=>Object.entries(tot).filter(([k])=>k.startsWith(p)).reduce((a,[,v])=>a+v,0);
+  const views=d=>Object.entries(DATA[d]||{}).filter(([k])=>k.startsWith("v/")).reduce((a,[,v])=>a+v,0);
+  const fd=days[0]||f,td=days[days.length-1]||t;
+  $("per").textContent=days.length?`ข้อมูล ${fd} ถึง ${td} (${days.length} วันที่มีข้อมูล)`:"ยังไม่มีข้อมูลในช่วงนี้ ถ้าเพิ่งอัปโหลด รอให้มีคนเข้าเว็บก่อน";
+  const shopClicks=Object.entries(tot).filter(([k])=>k.startsWith("s/")&&!/\/(favorit|kopieren|melden)$/.test(k)).reduce((a,[,v])=>a+v,0);
+  $("kpis").innerHTML=[["เปิดเว็บ",sum("v/")],["คลิกติดต่อร้าน",shopClicks],["คลิกโทร",Object.entries(tot).filter(([k])=>k.endsWith("/anruf")).reduce((a,[,v])=>a+v,0)],["คลิกจอง",Object.entries(tot).filter(([k])=>k.startsWith("s/")&&k.endsWith("/buchen")).reduce((a,[,v])=>a+v,0)],["เลือกดูเขต",sum("bz/")]].map(([l,v])=>`<div class="kpi"><b>${v.toLocaleString("de-DE")}</b><span>${l}</span></div>`).join("");
+  // daily bars
+  let list=[];if(days.length){let d=new Date(fd+"T12:00:00Z"),end=new Date(td+"T12:00:00Z");while(d<=end&&list.length<400){list.push(d.toISOString().slice(0,10));d=new Date(d.getTime()+864e5)}}
+  const mx=Math.max(1,...list.map(views));
+  $("bars").innerHTML=list.map(d=>`<div style="height:${Math.round(views(d)/mx*100)}%" data-t="${d.slice(5)}: ${views(d)}"></div>`).join("");
+  $("axis").innerHTML=list.length?`<span>${list[0].slice(5)}</span><span>สูงสุด ${mx}/วัน</span><span>${list[list.length-1].slice(5)}</span>`:"";
+  // shops
+  const S={};Object.entries(tot).forEach(([k,v])=>{const m=k.match(/^s\/(.+)\/([a-z]+)$/);if(!m)return;(S[m[1]]=S[m[1]]||{})[m[2]]=v});
+  const cols=["buchen","anruf","karte","web","whatsapp","instagram","gutschein"];
+  const rows=Object.entries(S).map(([k,o])=>[k,o,cols.reduce((a,c)=>a+(o[c]||0),0)+(o.studio||0)]).sort((a,b)=>b[2]-a[2]);
+  $("shops").innerHTML=`<tr><th>ร้าน</th><th>รวม</th>${cols.map(c=>`<th>${TY[c]}</th>`).join("")}<th></th></tr>`+(rows.length?rows.map(([k,o,s])=>{const nm=NAMES[k];return `<tr><td>${esc(nm?nm.n:k)}${nm&&nm.st?`<br><small>${esc(nm.st)}</small>`:""}</td><td><b>${s}</b></td>${cols.map(c=>`<td>${o[c]||""}</td>`).join("")}<td><button class="s cp" data-k="${esc(k)}">คัดลอก</button></td></tr>`}).join(""):`<tr><td colspan="10" class="mut">ยังไม่มีคลิก</td></tr>`);
+  $("shops").onclick=async e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=b.dataset.k,o=S[k],nm=NAMES[k]?NAMES[k].n:k;
+    const lines=cols.filter(c=>o[c]).map(c=>`• ${TYDE[c]}: ${o[c]}`);
+    const total=cols.reduce((a,c)=>a+(o[c]||0),0);
+    const txt=`Hallo ${nm},\n\nIhr Eintrag bei Thai Massage Hamburg (thaimassagehamburg.netlify.app) im Zeitraum ${de(fd)}–${de(td)}:\n\n${lines.join("\n")}\n= ${total} Kontakte zu Ihrem Studio\n\nInsgesamt wurde das Verzeichnis ${sum("v/").toLocaleString("de-DE")}-mal aufgerufen.\n\nMit „Top“ stehen Sie 1 Monat ganz oben in Ihrem Bezirk (25 €, ohne Provision). Interesse? Antworten Sie einfach auf diese Nachricht.\n\nViele Grüße\nTanawadee – Thai Massage Hamburg`;
+    try{await navigator.clipboard.writeText(txt);toast("คัดลอกแล้ว ✓")}catch(err){prompt("คัดลอกข้อความนี้",txt)}};
+  // districts
+  const bz=Object.keys(BZ).map(k=>[BZ[k],tot["bz/"+k]||0]).sort((a,b)=>b[1]-a[1]);
+  $("bz").innerHTML=bz.map(([n,v])=>`<span>${n}</span><b>${v}</b>`).join("");
+  // misc
+  const th=Object.entries(tot).filter(([k])=>k.startsWith("t/")).map(([k,v])=>{const m=k.split("/");return [`หมอนวด ${m[1]}: ${TY[m[2]]||m[2]}`,v]});
+  const vw=Object.entries(tot).filter(([k])=>k.startsWith("v/")&&k!=="v/home").map(([k,v])=>[`เปิดลิงก์ตรง #${k.slice(2)}`,v]);
+  const mi=[...Object.keys(MISC).filter(k=>tot[k]).map(k=>[MISC[k],tot[k]]),...th,...vw];
+  $("misc").innerHTML=mi.length?mi.map(([n,v])=>`<span>${esc(n)}</span><b>${v}</b>`).join(""):`<span class="mut">ยังไม่มีข้อมูล</span>`;
+}
+const de=d=>d.length===10?d.slice(8,10)+"."+d.slice(5,7)+"."+d.slice(0,4):d;
+$("go").onclick=()=>{const v=$("pw").value.trim();if(!v)return;store("thm-stats-pw",v);$("pw").value="";load()};
+$("pw").onkeydown=e=>{if(e.key==="Enter")$("go").click()};
+$("rng").onchange=load;$("re").onclick=load;
+$("out").onclick=()=>{store("thm-stats-pw",null);$("app").hidden=true;$("login").hidden=false};
+try{localStorage.setItem("thm-nocount","1")}catch(e){}
+loadNames().then(load);
+</script>
+</body>
+</html>

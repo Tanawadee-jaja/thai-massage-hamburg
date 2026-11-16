@@ -356,7 +356,10 @@ const SK={thai:{th:"นวดแผนไทย",en:"Traditional Thai",de:"Tradi
 const LG={th:"ไทย",de:"Deutsch",en:"English"};
 const THR=[
  {id:"tanawadee",n:"Tanawadee Thipboonta",nick:"Tana",img:"tana.jpg?v=2",top:"neck",role:{th:"หมอนวดและช่างต่อขนตา",en:"Massage therapist & lash stylist",de:"Masseurin & Wimpernstylistin"},shop:"Tanawadee Thai Massage & Lashes",sk:["neck","thai","oil","herb","hot","foot","lash"],lg:["th","de","en"]},
- {id:"penny",n:"Penny",role:{th:"หมอนวดไทย",en:"Thai massage therapist",de:"Thai-Masseurin"},shop:"Siri Thai Wellness",sk:["thai","oil","herb","hot","foot","neck","deep","preg"],lg:["th","de","en"]}
+ {id:"penny",n:"Penny",role:{th:"หมอนวดไทย",en:"Thai massage therapist",de:"Thai-Masseurin"},shop:"Siri Thai Wellness",sk:["thai","oil","herb","hot","foot","neck","deep","preg"],lg:["th","de","en"]},
+ {id:"gap",n:"Gap",role:{th:"หมอนวดไทย",en:"Thai massage therapist",de:"Thai-Masseurin"},shop:"Suwanrat Thai Wellness",sk:["thai","oil","herb","hot","foot","neck","deep","preg"],lg:["th","de","en"]},
+ {id:"pupe",n:"Pupe",role:{th:"หมอนวดไทย",en:"Thai massage therapist",de:"Thai-Masseurin"},shop:"Suwanrat Thai Wellness",sk:["thai","oil","herb","hot","foot","neck","deep","preg"],lg:["th","de","en"]},
+ {id:"kimberly",n:"Kimberly",role:{th:"หมอนวดไทย",en:"Thai massage therapist",de:"Thai-Masseurin"},shop:"Suwanrat Thai Wellness",sk:["thai","oil","foot","neck","deep","preg"],lg:["th","de","en"]}
 ];
 const SUB={mitte:"St. Georg · Altstadt · St. Pauli · HafenCity",altona:"Altona · Ottensen · Bahrenfeld · Lurup",eims:"Eimsbüttel · Rotherbaum · Harvestehude",nord:"Eppendorf · Winterhude · Barmbek · Uhlenhorst",wands:"Wandsbek · Bramfeld · Rahlstedt",harburg:"Harburg · Heimfeld · Neugraben",berg:"Bergedorf · Lohbrügge"};
 const smooth=pts=>{const n=pts.length,k=.22,lp=(a,b,t)=>[(a[0]+(b[0]-a[0])*t).toFixed(1),(a[1]+(b[1]-a[1])*t).toFixed(1)];let d="";for(let i=0;i<n;i++){const P=pts[(i-1+n)%n],C=pts[i],N=pts[(i+1)%n],a=lp(C,P,k),b=lp(C,N,k);d+=(i?" L":"M")+a[0]+","+a[1]+` Q${C[0]},${C[1]} ${b[0]},${b[1]}`}return d+"Z"};
